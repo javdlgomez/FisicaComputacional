@@ -79,8 +79,8 @@ Código:
 Solución:
 
 
-Nos piden obtener distintas gráficas con los distintos pasos y graficarlas comparadas con la solución analítica, en el repositorio se encuentran
+Nos piden obtener distintas gráficas con los distintos pasos y graficarlas comparadas con la solución analítica, en el repositorio se pueden visualizar el resto de las gráficas.
 
-![stack Overflow](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/d1.png)
+![Solución analítica vs Numéricas](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/djun.jpg)
 
 
