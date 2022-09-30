@@ -11,7 +11,7 @@ $$ y'(x) = x^2+1 $$
 Con Condiciones iniciales y de dominio
 $$y(0) = 0, 0x<1 $$
 
-Con distintos valores de h= 0.05, 0.10, 0.15 y 0.20 comparados con la solución analítica.
+Con distintos valores de h1= 0.05, h2= 0.10,h3= 0.15 y h4= 0.20 comparados con la solución analítica.
 
 Código: 
 
@@ -79,8 +79,16 @@ Código:
 Solución:
 
 
-Nos piden obtener distintas gráficas con los distintos pasos y graficarlas comparadas con la solución analítica, en el repositorio se pueden visualizar el resto de las gráficas.
+Nos piden obtener distintas gráficas con los distintos pasos y comparadas con la solución analítica, en el repositorio se pueden visualizar el resto de las gráficas. Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datoshcorrespondiente.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
 
 ![Solución analítica vs Numéricas](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/djun.jpg)
 
+Notemos que los valores más pequeños para iterar nuestro método numérico se asemejan más a la solución analítica.
+
+
+## Ejercicio 5.2: 
+
+Nos piden resolver el mismo problema del ejercicio 5.1 pero utilizando el método de Euler modificado, mejorado y comparar los resultados de los 3 métodos numéricos contra la solución analítica.
+
+Código:
 
