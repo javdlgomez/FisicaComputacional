@@ -81,6 +81,6 @@ Solución:
 
 Nos piden obtener distintas gráficas con los distintos pasos y graficarlas comparadas con la solución analítica.
 
-![image description](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/d1.emf)
+![image description](FisicaComputacional/blob/main/Tarea%231/graficas/d1.emf)
 
 
