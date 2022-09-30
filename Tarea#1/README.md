@@ -14,6 +14,7 @@ $$y(0) = 0, 0x<1 $$
 Con distintos valores de h= 0.05, 0.10, 0.15 y 0.20 comparados con la solución analítica.
 
 Código: 
+
     //===================================
     //
     // Metodo de Euler
