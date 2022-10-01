@@ -88,7 +88,7 @@ Notemos que los valores más pequeños para iterar nuestro método numérico se 
 
 ## Ejercicio 5.2: 
 
-Nos piden resolver el mismo problema del ejercicio 5.1 pero utilizando el método de Euler modificado, mejorado y comparar los resultados de los 3 métodos numéricos contra la solución analítica.
+Nos piden resolver el mismo problema del ejercicio 5.1 pero utilizando el método de Euler modificado, mejorado y comparar los resultados de los 3 métodos numéricos contra la solución analítica con h = 0.10.
 
 Código:
 
@@ -198,7 +198,7 @@ Notemos que los nuevos métodos de Euler tienen mayor presición para este probl
 
 ## Ejercicio 5.3: 
 
-Nos piden resolver un sistema de masa resorte por medio del Método de Euler Modificado y encontrar si se conserva la energía empleando este método numérico. Para ello primero debemos resolver el siguiente sistema de EDOs.
+Nos piden resolver un sistema de masa resorte por medio del Método de Euler Modificado con h = 0.10 y encontrar si se conserva la energía empleando este método numérico. Para ello primero debemos resolver el siguiente sistema de EDOs.
 
 $$ y'(t) = v $$
 
