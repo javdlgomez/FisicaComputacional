@@ -180,13 +180,14 @@ Código:
 Solución:
 
 
-Nos piden obtener una gráfica que compare los datos obtenidos de los distintos métodos numéricos contra la solución analítica. Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos"metodocorrespondiente".txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
+Nos piden obtener una gráfica que compare los datos obtenidos de los distintos métodos numéricos contra la solución analítica. Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos"metodocorrespondiente".txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot.
+
 enor: Euler normal
 emod: Euler modificado
 em: Euler Mejorado
 
 
-![Solución analítica vs Numéricas](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/522.jpg)
+![Solución analítica vs Numéricas](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/e522.jpg)
 
 Notemos que los nuevos métodos de Euler tienen mayor presición para este problema en específico, esto era lo que se esperaba ya que son refinamientos del original.
 
