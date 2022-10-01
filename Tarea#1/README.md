@@ -196,5 +196,18 @@ em: Euler Mejorado
 Notemos que los nuevos métodos de Euler tienen mayor presición para este problema en específico, esto era lo que se esperaba ya que son refinamientos del original.
 
 
+## Ejercicio 5.3: 
 
+Nos piden resolver un sistema de masa resorte por medio del Método de Euler Modificado y encontrar si se conserva la energía empleando este método numérico. Para ello primero debemos resolver el siguiente sistema de EDOs.
+
+$$ y'(t) = v $$
+
+$$ v'(t) = -x $$
+
+Con Condiciones iniciales y de dominio
+$$x(0) = 0, v(0) = 1,  t<0 $$
+
+Con distintos valores de h1= 0.05, h2= 0.10,h3= 0.15 y h4= 0.20 comparados con la solución analítica.
+
+Código: 
 
