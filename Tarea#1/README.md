@@ -81,7 +81,9 @@ Solución:
 
 Nos piden obtener distintas gráficas con los distintos pasos y comparadas con la solución analítica, en el repositorio se pueden visualizar el resto de las gráficas. Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datoshcorrespondiente.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
 
-![Solución analítica vs Numéricas](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/djun.jpg)
+![image](https://user-images.githubusercontent.com/100542213/193376334-5ceb9547-282d-43fb-9ffc-b0f7694ec171.png)
+
+
 
 Notemos que los valores más pequeños para iterar nuestro método numérico se asemejan más a la solución analítica.
 
@@ -191,7 +193,7 @@ emod: Euler modificado
 em: Euler Mejorado
 
 
-![Solución analítica vs Numéricas](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/e522.jpg)
+![image](https://user-images.githubusercontent.com/100542213/193376343-c34d52b2-8789-43af-ac7c-a71db6313300.png)
 
 Notemos que los nuevos métodos de Euler tienen mayor presición para este problema en específico, esto era lo que se esperaba ya que son refinamientos del original.
 
@@ -355,7 +357,7 @@ datosej3 using 1:3; v vs t
 datosej3 using 1:4; E vs t
 
 
-![Solución analítica vs Numéricas](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/energiae3.jpg)
+![image](https://user-images.githubusercontent.com/100542213/193376353-6b4f14a9-b9a1-4362-8309-a2278337aa3c.png)
 
 El valor de la energía parece conservarse, especialmente si lo comparamos con el método de Euler original. Además la solución del sistema se comporta como se espera que sea la solución analítica con respecto a la posición y velocidad.
     
