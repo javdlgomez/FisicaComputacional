@@ -182,8 +182,12 @@ Solución:
 
 Nos piden obtener una gráfica que compare los datos obtenidos de los distintos métodos numéricos contra la solución analítica. Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos"metodocorrespondiente".txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot.
 
+Los nombres de los archivos tienen los siguientes significados
+
 enor: Euler normal
+
 emod: Euler modificado
+
 em: Euler Mejorado
 
 
