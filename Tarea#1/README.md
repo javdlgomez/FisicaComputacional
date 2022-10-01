@@ -205,9 +205,159 @@ $$ y'(t) = v $$
 $$ v'(t) = -x $$
 
 Con Condiciones iniciales y de dominio
-$$x(0) = 0, v(0) = 1,  t≥0 $$
+$$y(0) = 0, v(0) = 1,  t≥0 $$
 
 
 
 Código: 
 
+    //===================================
+    //
+    // Euler modificado y conservacion de la energia
+    // compilacion: g++ -o programa ejercicio5-3.cpp
+    //===================================
+
+
+    #include <iostream>
+    #include <cmath>
+
+
+    using namespace std;
+
+    //Hago 2 metodos de derivadas distintos y cada metodo de euler llama 
+    //su respectivo metodo de derivada, esto no es una buena practica de programacion
+    //pero lo hice asi para seguir con el mismo esquema del ejemplo pero
+    //no hice bien la adaptacion
+
+    double euler_modificado1( double y, double t, double h ,double v);
+    double euler_modificado2( double y, double t, double h, double v );
+    double derivada1( double y, double t );
+    double derivada2( double y, double t );
+    //Ademas queremos medir la energia
+    double energia(double y, double t);
+
+
+    int main()
+    {
+      // Datos iniciales
+      const double y0 = 0.0;
+      const double v0 = 1;
+      const double t0 = 0.0;
+      const double h = 0.10;
+      const double E0 = 0.5;
+      const int N = 100; // numero de iteraciones
+
+      double y = y0;
+      double t = t0;
+      double v = v0;
+      double E = E0;
+      double v_nueva = 0.0;
+      double y_nueva = 0.0;
+      double E_nueva = 0.0;
+
+
+      cout << t << "\t" << y << "\t" << v << "\t" << E << endl;
+
+      // ciclo de iteraciones
+      for( int i=1; i<=N; i++ ){
+
+        v_nueva = euler_modificado2(y,t,h,v);
+        y_nueva = euler_modificado1(y, t, h, v);
+
+
+        y = y_nueva;
+        v = v_nueva;
+
+        E_nueva = energia(y,v);
+        E = E_nueva;
+
+        t = t + h;
+
+          cout << t << "\t" << y << "\t" << v << "\t" << E << endl;
+      }
+
+      return 0;
+    }
+
+    //Aquí sería mucho mejor retornar una tupla
+    //en vez de hacer 2 veces los mismos calculos
+    //para nada mas retornar una variable
+    //esta implementacion no es buena pero funciona
+
+
+    double euler_modificado1( double y, double t, double h, double v )
+    {
+      //definimos los parámetros a utilizar
+
+      double t_medio = t + h/2;
+      double v_medio = v +h/2*derivada2(y,t);
+      // V = V0 -hY0
+      double y_medio = y +h/2*derivada1(v,t);
+      //Y = Y0+hV0
+
+      //esta se la parte del método modificado
+
+      double y_imas1 = y +h*v_medio;
+      // Y = V0 -hV(t+h/2)
+
+      return y_imas1;
+    }
+
+
+
+    double euler_modificado2( double y, double t, double h , double v)
+    {
+      //definimos los parámetros a utilizar
+
+      double t_medio = t + h/2;
+      double v_medio = v +h/2*derivada2(y,t);
+      // V = V0 -hY0
+      double y_medio = y +h/2*derivada1(v,t);
+      //Y = Y0+hV0
+
+      //esta se la parte del método modificado
+
+      double v_imas1 = v -h*y_medio; 
+      // V = V0 -hY(t+h/2)
+
+      return v_imas1;
+    }
+
+
+    double derivada1( double v, double t )
+    {
+      return v;
+    }
+
+
+    double derivada2( double y, double t )
+    {
+      return -y;
+    }
+
+    double energia(double y, double v)
+    {
+      double energia = y*y/2+v*v/2;
+      return energia;
+    }
+    
+    
+Solución:
+
+Nos piden graficar las funciones de posición y velocidad contra el tiempo para analizar el movimiento del sistema y la energía contra el tiempo para encontrar si nuestro método numérico conserva el valor de esta. Para ello escribimos el output de consola en un archivo llamado datosej3 y estos los graficamos en gnuplot.
+
+El orden de las columnas de nuestra base de datos es; t,y,v,E. Esto quiere decir que las gráficas son las siguientes:
+
+datosej3 using 1:2; y vs t
+
+datosej3 using 1:3; v vs t
+
+datosej3 using 1:4; E vs t
+
+
+![Solución analítica vs Numéricas](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%231/graficas/energiae3.jpg)
+
+El valor de la energía parece conservarse, especialmente si lo comparamos con el método de Euler original. Además la solución del sistema se comporta como se espera que sea la solución analítica con respecto a la posición y velocidad.
+    
+    
+    
