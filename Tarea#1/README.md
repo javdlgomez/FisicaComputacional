@@ -9,7 +9,7 @@ Nos piden resolver por medio del método de euler la siguiente ecuación diferen
 $$ y'(x) = x^2+1 $$
 
 Con Condiciones iniciales y de dominio
-$$y(0) = 0, 0x<1 $$
+$$y(0) = 0, 0≤x<1 $$
 
 Con distintos valores de h1= 0.05, h2= 0.10,h3= 0.15 y h4= 0.20 comparados con la solución analítica.
 
@@ -205,9 +205,9 @@ $$ y'(t) = v $$
 $$ v'(t) = -x $$
 
 Con Condiciones iniciales y de dominio
-$$x(0) = 0, v(0) = 1,  t<0 $$
+$$x(0) = 0, v(0) = 1,  t≥0 $$
 
-Con distintos valores de h1= 0.05, h2= 0.10,h3= 0.15 y h4= 0.20 comparados con la solución analítica.
+
 
 Código: 
 
