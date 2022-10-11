@@ -301,7 +301,7 @@ nok = 117        nbad = 0
 Ahora no necesitamos tanto espacio en memoria para generar una gráfica que muestre lo deseado, se aumentó el ancho de línea de la solución analítica para que se pudiera visualizar.
 
 
-![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ejercicio5-7.emf)
+![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ejercicio5-7.png)
 
 
 ## Ejercicio 5.10: 
