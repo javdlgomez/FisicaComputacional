@@ -1,91 +1,196 @@
-# Tarea#1
+# Tarea#2
 
-Solución de ejercicios utilizando distintas iteraciones del método de Euler para resolver EDOs en c++, solamente se utilizó la librería de stdio.
+Solución de ejercicios utilizando distintas iteraciones del método de Runge-Kutta a orden 4 en c++.
 
-## Ejercicio 5.1: 
+## Ejercicio 5.5: 
 
-Nos piden resolver por medio del método de euler la siguiente ecuación diferencial:
+Nos piden resolver por medio del método de RK4 la siguiente ecuación diferencial:
 
-$$ y'(x) = x^2+1 $$
+$$ p'(x) = mg-kv^2$
 
-Con Condiciones iniciales y de dominio
-$$y(0) = 0, 0≤x<1 $$
-
-Con distintos valores de h1= 0.05, h2= 0.10,h3= 0.15 y h4= 0.20 comparados con la solución analítica.
+Con un tamaño de paso para obtener 4 cifras significativas en un intervalo de 10 segundos y comparar con la solución analítica a O(0).
 
 Código: 
 
-    //===================================
+    //============================================
     //
-    // Metodo de Euler
-    // compilacion: g++ -o programa ejercicio5-1.cpp
+    // Metodo de RK4 caida con friccion
     //
-    //===================================
-    
+    //============================================
+
     #include <iostream>
-    
+    #include <cmath>
+    #include <iomanip>
+    #include <fstream>
+
+
     using namespace std;
-    
-    //utilizamos la implementación más sencilla de este método vista en clase
-    double euler( double y, double t, double h );
-    double derivada( double y, double t );
-    
+
+
+
+
+
+    void RK4( const double *y,
+                 const int n_ec,
+                 const double t,
+                 const double h,
+                 double *y_imas1,
+                     void (*derivada)( const double *, const double, double * ) );
+    void salidaSolucion( const double t, const double *y, const int N );
+    void caidaLibreFriccion( const double *y, const double t, double *dydt );
+
+
+
+
+
     int main()
     {
       // Datos iniciales
-      const double y0 = 0;
-      const double t0 = 0;
-      const double h = 0.1;
-    
-      //Para calcular N despejamos la ecuación
-      // 1 = (N-2)h
-      //el -2 aparece porque empezamos a contar en 2 y nos dicen que el dominio es menor a 1
-      const int N = 9; // 
-      
-      double y = y0;
+      const double t0 = 0.0;
+      const double h = .05;
+      const int N = 10000; // numero de iteraciones
+      const int out_cada = 1; // output cada out_cada iteraciones
+      const int n_ec = 2; // numero de ecuaciones
+
+
+      // reservar espacio para y
+      double *y       = new double[ n_ec ];
+      double *y_nueva = new double[ n_ec ];
+
+      // inicializar cada variable segun las condiciones iniciales
+      y[0]  = 1.0;
+      y[1] = 0.0;
+
+
+      // puntero a la funcion "derivada"
+      void (*derivada)( const double *, const double, double * );
+      derivada = caidaLibreFriccion;
+
+
+      // inicializar y_nueva
+      for( int i=0; i<n_ec; i++ ) y_nueva[i] = 0.0;
+
       double t = t0;
-      double y_nueva = 0.0;
-    
-      cout << t << "\t" << y << endl;
-      
+
+
+      salidaSolucion( t, y, n_ec );
+
       // ciclo de iteraciones
-      for( int i=0; i<=N; i++ ){
-    
-        y_nueva = euler( y, t, h );
-    
+      for( int i=1; i<=N; i++ ){
+        RK4( y, n_ec, t, h, y_nueva, derivada );
+
         y = y_nueva;
         t = t + h;
-    
-        cout << t << "\t" << y << endl;
+
+        if ( i%out_cada == 0){
+          salidaSolucion( t, y, n_ec );
+        }
+
       }
-      
+
       return 0;
     }
-    
-    
-    double euler( double y, double t, double h )
+
+
+
+
+
+
+
+    void salidaSolucion( const double t, const double *y, const int N )
     {
-      return y + h*derivada( y, t );
-    }
-    
-    
-    double derivada( double y, double t )
-    {
-      //aquí debemos tener cuidado para cambiar al problema
-      //específico que deseamos solucionar
-      return y*y+1;
+      cout << fixed << setprecision(4) << t;
+
+      for( int i=0; i<N; i++ )
+        cout << scientific << setprecision(4) << "\t" << y[i];
+
+      cout << endl;  
     }
 
+
+
+
+
+
+
+
+    void RK4( const double *y,
+                 const int n_ec,
+                 const double t,
+                 const double h,
+                 double *y_imas1,
+                 void (*derivada)( const double *, const double, double * ) )
+    {
+      double *k0 = new double[ n_ec ];
+      double *k1 = new double[ n_ec ];
+      double *k2 = new double[ n_ec ];
+      double *k3 = new double[ n_ec ];
+      double *z  = new double[ n_ec ];
+
+      (*derivada)( y, t, k0 );
+
+      for( int i=0; i<n_ec; i++ )
+        z[i] = y[i] + 0.5*k0[i]*h;
+
+      (*derivada)( z, t+0.5*h, k1 );
+
+      for( int i=0; i<n_ec; i++ )
+        z[i] = y[i] + 0.5*k1[i]*h;
+
+      (*derivada)( z, t+0.5*h, k2 );
+
+      for( int i=0; i<n_ec; i++ )
+        z[i] = y[i] + k2[i]*h;
+
+      (*derivada)( z, t+h, k3 );
+
+      for( int i=0; i<n_ec; i++ )
+       y_imas1[i] = y[i] + h/6.0 * ( k0[i] + 2*k1[i] + 2*k2[i] + k3[i] );
+
+      delete[] k0;
+      delete[] k1;
+      delete[] k2;
+      delete[] k3;
+      delete[] z;
+    }
+
+
+    void caidaLibreFriccion( const double *y, const double t, double *dydt )
+    {
+      const double g = 9.8; // aceleracion gravedad
+      const double m = 0.01; // masa
+      const double k = .0001; // constante de friccion
+
+      dydt[0] = y[1];
+      dydt[1] = m*g - k*y[1]*y[1];
+    }
+
+
+
+
+
+
+    void derivada( const double y, const double t, double &dydt )
+    {
+      const double g = 9.8; // aceleracion gravedad
+      const double m = .01; // masa
+      const double k = .0001; // constante de friccion
+
+      dydt = m*g - k*y;
+    }
+
+  
 Solución:
 
 
 Nos piden obtener distintas gráficas con los distintos pasos y comparadas con la solución analítica, en el repositorio se pueden visualizar el resto de las gráficas. Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datoshcorrespondiente.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
 
-![image](https://user-images.githubusercontent.com/100542213/193376334-5ceb9547-282d-43fb-9ffc-b0f7694ec171.png)
+Nos piden realizar una comparación entre la velocidad de la solución analítica de un objeto en caída libre contra la solución numérica por medio de RK4 de un objeto cayendo tomando en cuenta la resistencia del aire a O(2). Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos#ejercicio.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
+
+![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-5corto.emf)
 
 
-
-Notemos que los valores más pequeños para iterar nuestro método numérico se asemejan más a la solución analítica.
+El sistema con resistencia del aire llega a una velocidad terminal y la solución de caída libre no estpa acotado.
 
 
 ## Ejercicio 5.2: 
