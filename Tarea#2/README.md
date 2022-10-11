@@ -183,102 +183,104 @@ Código:
 Solución:
 
 
-Nos piden obtener distintas gráficas con los distintos pasos y comparadas con la solución analítica, en el repositorio se pueden visualizar el resto de las gráficas. Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datoshcorrespondiente.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
-
 Nos piden realizar una comparación entre la velocidad de la solución analítica de un objeto en caída libre contra la solución numérica por medio de RK4 de un objeto cayendo tomando en cuenta la resistencia del aire a O(2). Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos#ejercicio.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
 
 ![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-5lite.png)
 
 
-El sistema con resistencia del aire llega a una velocidad terminal y la solución de caída libre no estpa acotado.
+El sistema con resistencia del aire llega a una velocidad terminal a diferencia de la solución de caída libre que no está acotada, se generaron imágenes que muestran de mejor manera el comportamiento pero son muy pesadas para desplegarlas.
 
 
-## Ejercicio 5.2: 
+## Ejercicio 5.7: 
 
-Nos piden resolver el mismo problema del ejercicio 5.1 pero utilizando el método de Euler modificado, mejorado y comparar los resultados de los 3 métodos numéricos contra la solución analítica con h = 0.10.
+Nos piden resolver el mismo problema del ejercicio 5.5 pero utilizando el método adaptativo que vimos en clase con una tolerancia de error de 10-5.
 
 Código:
 
-    //===================================
+Adjunto únicamente el archivo cpp ya que los headers son equivalentes a los vistos en clase
+
+
+    //============================================
     //
-    // Metodo de Euler Mejorado y Modificado
-    // compilacion: g++ -o programa ejercicio5-2.cpp
-    //===================================
+    // Pendulo doble compuesto con Runge-Kutta
+    // usando tamaño de paso adaptativo
+    //
+    //============================================
 
-
-    //este ejercicio es muy parecido al anterior
-    //solo debemos agregar el paso del método modificado
-    //y definir los parametros que deseamos 
     #include <iostream>
     #include <cmath>
+    #include <iomanip>
+    #include <fstream>
 
+    #include "rkqs.hpp"
+    #include "odeint.hpp"
 
     using namespace std;
 
 
-    double euler_mejorado( double y, double t, double h );
-    double euler_modificado( double y, double t, double h );
-    double derivada( double y, double t );
+    void caidaLibreFriccion( double t, double *y, double *dydt );
+
+
+
 
     int main()
     {
-      // Datos iniciales
-      const double y0 = 0.0;
-      const double t0 = 0.0;
-      const double h = 0.10;
-      // 1 = N*h
-      const int N = 10; // numero de iteraciones
+      int nvar, nok, nbad;
+      double t1, t2, eps, h, hmin, *ystart;
 
-      double y = y0;
-      double t = t0;
-      double y_nueva = 0.0;
 
-      cout << t << "\t" << y << endl;
+      /* memory space for variables */
+      // numero de ecuaciones
+      nvar = 2;
 
-      // ciclo de iteraciones
-      for( int i=1; i<=N; i++ ){
+      // valor inicial de cada variable
+      ystart = new double[ nvar ];
 
-        y_nueva = euler_mejorado( y, t, h );
+      /* other variables initialization */
+      // tolerancia (error)
+      eps  = 1e-10;
+      h    = 1;
+      hmin = 1e-5;
+      nok  = 0;
+      nbad = 0;
 
-        y = y_nueva;
-        t = t + h;
 
-          cout << t << "\t" << y << endl;
-      }
+
+      /* initial condition */
+      ystart[0]  = 1.0;
+      ystart[1]  = 0.0;
+
+      // tiempo inicial
+      t1 =  0.0;
+
+      // tiempo final
+      t2 =  2000.0;
+
+
+      odeint( ystart, nvar, t1, t2, eps, h, hmin, &nok, &nbad, &caidaLibreFriccion, &rkqs );
+
+      cout << "nok = " << nok <<"\t nbad = " << nbad << endl;
 
       return 0;
     }
 
-    double euler_modificado( double y, double t, double h )
+
+
+
+
+
+
+    void caidaLibreFriccion( double t, double *y, double *dydt )
     {
-      //definimos los parámetros a utilizar
-      double t_medio = t + h/2;
-      double y_medio = y +h/2*derivada(y,t);
-      //esta se la parte del método modificado
+      const double g = 9.8; // aceleracion gravedad
+      const double m = 0.01; // masa
+      const double k = .0001; // constante de friccion
 
-      double y_imas1 = y +h *derivada(y_medio,t_medio); 
 
-      return y_imas1;
+      dydt[0] = y[1];
+      dydt[1] = m*g - k*y[1]*y[1];
+
     }
-
-    double euler_mejorado( double y, double t, double h )
-    {
-      double y_tilde = y + h*derivada( y, t );
-
-      //esta se la parte del método mejorado
-
-      double y_imas1 = y + 0.5*h * ( derivada( y, t ) + derivada( y_tilde, t+h ) ); 
-
-      return y_imas1;
-    }
-
-
-    double derivada( double y, double t )
-    {
-      return y*y+1;
-    }
-
-
 
 
 
@@ -287,23 +289,22 @@ Código:
 Solución:
 
 
-Nos piden obtener una gráfica que compare los datos obtenidos de los distintos métodos numéricos contra la solución analítica. Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos"metodocorrespondiente".txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot.
-
-Los nombres de los archivos tienen los siguientes significados
-
-enor: Euler normal
-
-emod: Euler modificado
-
-em: Euler Mejorado
+Empleamos el algoritmo proporcionado por los headers vistos en clase y con ello adaptamos la solución para el problema de caída con resistencia cuadrática del aire.
+Los resultados de las gráficas son generados en un archivo solucion.dat y las iteraciones fallidas o aceptadas son impresas en consola.
 
 
-![image](https://user-images.githubusercontent.com/100542213/193376343-c34d52b2-8789-43af-ac7c-a71db6313300.png)
+Obtuvimos los siguientes resultados para un h = 0.5:
 
-Notemos que los nuevos métodos de Euler tienen mayor presición para este problema en específico, esto era lo que se esperaba ya que son refinamientos del original.
+nok = 117        nbad = 0
 
 
-## Ejercicio 5.3: 
+Ahora no necesitamos tanto espacio en memoria para generar una gráfica que muestre lo deseado, se aumentó el ancho de línea de la solución analítica para que se pudiera visualizar.
+
+
+![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ejercicio5-7.emf)
+
+
+## Ejercicio 5.10: 
 
 Nos piden resolver un sistema de masa resorte por medio del Método de Euler Modificado con h = 0.10 y encontrar si se conserva la energía empleando este método numérico. Para ello primero debemos resolver el siguiente sistema de EDOs.
 
