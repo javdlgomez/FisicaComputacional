@@ -187,7 +187,7 @@ Nos piden obtener distintas gráficas con los distintos pasos y comparadas con l
 
 Nos piden realizar una comparación entre la velocidad de la solución analítica de un objeto en caída libre contra la solución numérica por medio de RK4 de un objeto cayendo tomando en cuenta la resistencia del aire a O(2). Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos#ejercicio.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
 
-![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-5corto.emf)
+![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-5lite.png)
 
 
 El sistema con resistencia del aire llega a una velocidad terminal y la solución de caída libre no estpa acotado.
