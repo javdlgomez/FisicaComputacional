@@ -6,7 +6,10 @@ Solución de ejercicios utilizando distintas iteraciones del método de Runge-Ku
 
 Nos piden resolver por medio del método de RK4 la siguiente ecuación diferencial:
 
+
 $$ p'(x) = mg-kv^2$
+
+
 
 Con un tamaño de paso para obtener 4 cifras significativas en un intervalo de 10 segundos y comparar con la solución analítica a O(0).
 
