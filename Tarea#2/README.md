@@ -429,10 +429,12 @@ Ahora ya es posible apreciar el comportamiento oscilatorio de la solución en nu
 Nos piden resolver el péndulo simple para cualquier amplitud utilizando el método adaptativo de RK4, para ello debemos resolver la siguiente ecuación diferencial
 
 
-$$ \theta '' = -sin(\theta)
+
+$$ \theta '' = -sin(\theta)$$
 
 
 con las siguientes condiciones iniciales:
+
 
 
 $$  \theta'(0) = 1,2,3,4,5,6 \ \ \ \theta''(0) = 0 $$
