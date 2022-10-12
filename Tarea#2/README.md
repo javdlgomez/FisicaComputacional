@@ -696,6 +696,6 @@ Generamos en Gnuplot por medio de un ciclo una imagen para cada punto obtenido e
 
 
 
-Este es un frame de ejmplo del resultado de la animación.
+Este es un frame de ejemplo del resultado de la animación.
 
 
