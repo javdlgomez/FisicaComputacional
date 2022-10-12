@@ -303,7 +303,8 @@ nok = 117        nbad = 0
 Ahora no necesitamos tanto espacio en memoria para generar una gráfica que muestre lo deseado, se aumentó el ancho de línea de la solución analítica para que se pudiera visualizar.
 
 
-![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-7.png)
+![image](https://user-images.githubusercontent.com/100542213/195241516-adbb7ce7-7ac8-4a0d-a005-4a46720a420a.png)
+
 
 
 ## Ejercicio 5.10: 
@@ -406,11 +407,13 @@ Solución:
 Nos piden graficar la posición contra el tiempo para analizar el movimiento del sistema. Para ello utilizamos los headers proporcionados en clase y el resultado es escrito en un archivo .dat.
 
 
-![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-10eps1.png)
+![image](https://user-images.githubusercontent.com/100542213/195241547-1476dbae-7e8d-4af1-95a3-583a3c362173.png)
+
 
 Aquí tenemos un problema ya que el valor proporcionado de epsilón no produce una solución adecuada del sistema, para ello tomamos uno de orden 10-5.
 
-![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-10eps1e-5.png)
+![image](https://user-images.githubusercontent.com/100542213/195241566-ef28c07c-a3fc-4455-867b-5b9018b99e67.png)
+
 
 
 Ahora ya es posible apreciar el comportamiento oscilatorio de la solución en nuestra gráfica de posición contra el tiempo.
@@ -629,7 +632,7 @@ Jugando con los parámetros logramos reproducir el corte en E=1 en donde las eli
 
 
 
-## Ejercicio 5.5: 
+## Ejercicio 5.13: 
 
 Nos piden animar el péndulo simple, para ello vamos a tomar los resultados de la curva de E=.25
 
