@@ -626,3 +626,63 @@ Jugando con los parámetros logramos reproducir el corte en E=1 en donde las eli
 ![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-12hred.PNG)
 
 
+
+## Ejercicio 5.5: 
+
+Nos piden animar el péndulo simple, para ello vamos a tomar los resultados de la curva de E=.25
+
+
+
+Código: 
+
+    #Generador de imagenes para la animacion
+
+
+
+
+    #Si no hacemos esto no cargan las imágenes y solo las tira en consola
+
+    set terminal pngcairo size 1024,1024 enhanced font "Verdana,12"
+
+
+    #Ponemos nuestros ejes, en teoría están en metros pero así
+    #se sobrecarga menos la animacion
+
+    set xlabel 'x'
+    set ylabel 'y'
+
+    #Si no hacemos esto se comprime la imagen conforme la gráfica se vuelve horizontal o vertical
+    set xrange [-1:1]
+    set yrange [-1.5:.5]
+
+
+    set title ""
+    do for [i=0:19] {
+
+        #colocamos la expresion regular para poder usar ffmpeg despues
+        set output sprintf( "animacion/animacion%02d.png", i )
+
+        #$2 significa que lo sacamos de la segunda columna de nuestros datos
+
+        #esta es la cabeza del pendulo
+        plot 'd5-12Ep25.txt' every ::i::i u (x1=sin($2)):(y1=-cos($2)) linetype rgb "red"  lw 100 title "" , \
+         '' every ::i::i u (0.0):(0.0):(x1):(y1) with vectors nohead  title ""
+        #aqui hacemos la cuerda del pendulo que va desde el origen hasta el punto del del dataset
+        print i
+    }
+
+
+    # Para correrlo necesitamos ffmpeg en path o en la misma carpeta y lo corremos con
+    # ffmpeg -r 10 -i animacion$02d.png -pix_fmt yuv420p animacion.mp4
+
+  
+Solución:
+
+Generamos en Gnuplot por medio de un ciclo una imagen para cada punto obtenido en el dataset que están en intervalos de .5s, para ello necesitamos establecer los parámetros del output de la imagen. Además estilizamos un poco para que se vea una masa unida a una cuerda y tenemos un poco de cuidado con la generación de los nombres y en donde se encontraran almacenados. Una vez generadas las imágenes utilizamos ffmpeg para realizar una animación con 10 imágenes por segundo del péndulo simple, estos parámetros fueron elegidos por estilización aunque eso sacrifica la fidelidad física del experimento, esto se hizo para ejemplificar el proceso de animación ya que solo se deben obtener datos con mayor finura que avancen al mismo ritmo del tiempo para producir una simulación que intente ejemplicar la realidad.
+
+![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/animacion/animacion03.png)
+
+
+Este es un frame de ejmplo del resultado de la animación.
+
+
