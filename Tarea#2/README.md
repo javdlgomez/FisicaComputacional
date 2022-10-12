@@ -611,3 +611,5 @@ Código:
 Nos piden graficar los diagramas de fase para los niveles de energía pedidos, el libro nos pide considerar el comportamiento del sistema para distintas energías pero lo que yo encontré es que el cambio se obtiene cuando tenemos un valor de w mayor o igual a uno, no de la energía. CUando sucede eso los diagramas de fase quedan centralizados en un punto, creo que ese es el comportamiento que nos deseaba considerar.
 
 ![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ejercicio5-12.PNG)
+
+Este comportamiento es idéntico al péndulo para ángulos pequeños por las energías que utilizamos y que nuestro problema no presenta términos disipativos.
