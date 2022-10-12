@@ -7,7 +7,7 @@ Solución de ejercicios utilizando distintas iteraciones del método de Runge-Ku
 Nos piden resolver por medio del método de RK4 la siguiente ecuación diferencial:
 
 
-$$ p'(x) = mg-kv^2$
+$$ p'(x) = mg-kv^2$$
 
 
 
