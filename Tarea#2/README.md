@@ -608,8 +608,10 @@ Código:
   Solución: 
   
   
-Nos piden graficar los diagramas de fase para los niveles de energía pedidos, el libro nos pide considerar el comportamiento del sistema para distintas energías pero lo que yo encontré es que el cambio se obtiene cuando tenemos un valor de w mayor o igual a uno, no de la energía. CUando sucede eso los diagramas de fase quedan centralizados en un punto, creo que ese es el comportamiento que nos deseaba considerar.
+Nos piden graficar los diagramas de fase para los niveles de energía pedidos, el libro nos pide considerar el comportamiento del sistema para distintas energías. Teorícamente esperamos que haya un cambio en el comportamiento del sistema cuando la energía cinéctica supera cierto margen. Pero aquí es donde nos encontramos con uno de los problemas de utilizar métodos numéricos y del por qué es importante la comuniación entre la teoría y la práctica.
+
+Nuestro sistema no presentó el cambio para producir órbitas abiertas después de E=1, estuve buscando cuál podría ser la razón de esto ya que cambiando algunos parámetros pude encontrar comportamientos distintos, ya que sucedió lo mismo utilizando nuestros scripts de Euler. Al parecer para obtener el resultado esperado es una combinación de colocar correctamente los parámetros en los pasos para que nuestro programa pueda diferenciar el seno de la aproximación en ángulos pequeños. Para los parámetros dados nuestro resultado de diagramas de fase es el siguiente:
 
 ![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ejercicio5-12.PNG)
 
-Este comportamiento es idéntico al péndulo para ángulos pequeños por las energías que utilizamos y que nuestro problema no presenta términos disipativos.
+Este comportamiento es idéntico al esperado por la aproximación en movimiento armónico simple donde las órbitas nunca se abren. 
