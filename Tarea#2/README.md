@@ -421,7 +421,7 @@ Ahora ya es posible apreciar el comportamiento oscilatorio de la solución en nu
     
     
     
-## Ejercicio 5.10:
+## Ejercicio 5.12:
 
 Nos piden resolver el péndulo simple para cualquier amplitud utilizando el método adaptativo de RK4, para ello debemos resolver la siguiente ecuación diferencial
 
@@ -620,7 +620,8 @@ Nuestro sistema no presentó el cambio para producir órbitas abiertas después 
 Para los parámetros dados que se encuentran anteriormente en el código nuestro resultado de diagramas de fase es el siguiente:
 
 
-![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ejercicio5-12.PNG)
+![image](https://user-images.githubusercontent.com/100542213/195241900-a2593172-2b20-4a06-8fa8-6d57862c7e89.png)
+
 
 Este comportamiento es idéntico al esperado por la aproximación en movimiento armónico simple donde las órbitas nunca se abren. 
 
@@ -628,7 +629,8 @@ Este comportamiento es idéntico al esperado por la aproximación en movimiento 
 Jugando con los parámetros logramos reproducir el corte en E=1 en donde las elipses se empiezan a cortar hasta abrirse:
 
 
-![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-12hred.PNG)
+![image](https://user-images.githubusercontent.com/100542213/195241918-b510a36f-8c6b-47cc-8e5f-93fd2812bf64.png)
+
 
 
 
@@ -685,7 +687,8 @@ Solución:
 
 Generamos en Gnuplot por medio de un ciclo una imagen para cada punto obtenido en el dataset que están en intervalos de .5s, para ello necesitamos establecer los parámetros del output de la imagen. Además estilizamos un poco para que se vea una masa unida a una cuerda y tenemos un poco de cuidado con la generación de los nombres y en donde se encontraran almacenados. Una vez generadas las imágenes utilizamos ffmpeg para realizar una animación con 10 imágenes por segundo del péndulo simple, estos parámetros fueron elegidos por estilización aunque eso sacrifica la fidelidad física del experimento, esto se hizo para ejemplificar el proceso de animación ya que solo se deben obtener datos con mayor finura que avancen al mismo ritmo del tiempo para producir una simulación que intente ejemplicar la realidad.
 
-![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/animacion/animacion03.png)
+![image](https://user-images.githubusercontent.com/100542213/195241958-d451d5db-0353-47db-acbc-0fe89937773d.png)
+
 
 
 Este es un frame de ejmplo del resultado de la animación.
