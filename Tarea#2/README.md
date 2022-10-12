@@ -185,7 +185,8 @@ Solución:
 
 Nos piden realizar una comparación entre la velocidad de la solución analítica de un objeto en caída libre contra la solución numérica por medio de RK4 de un objeto cayendo tomando en cuenta la resistencia del aire a O(2). Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos#ejercicio.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
 
-![image](![image](https://user-images.githubusercontent.com/100542213/195241130-5a0c8ed2-b231-493b-9094-5aadc24876a7.png))
+![image](https://user-images.githubusercontent.com/100542213/195241429-1b30bfd9-777c-46fb-a1c7-62a47079aee1.png)
+
 
 
 
