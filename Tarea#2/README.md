@@ -618,3 +618,11 @@ Para los parámetros dados que se encuentran anteriormente en el código nuestro
 ![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ejercicio5-12.PNG)
 
 Este comportamiento es idéntico al esperado por la aproximación en movimiento armónico simple donde las órbitas nunca se abren. 
+
+
+Jugando con los parámetros logramos reproducir el corte en E=1 en donde las elipses se empiezan a cortar hasta abrirse:
+
+
+![image](https://github.com/javdlgomez/FisicaComputacional/blob/main/Tarea%232/imagenes/ej5-12hred.PNG)
+
+
