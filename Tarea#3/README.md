@@ -1,23 +1,22 @@
 # Tarea#3
 
-Solución de ejercicios utilizando distintas iteraciones del método de Runge-Kutta a orden 4 en c++.
+Solución de el problema de 3 cuerpos sistema Tierra-Luna-Cohete utilizando el método de Runge-Kutta a orden 4 en c++ y adaptando las condiciones iniciales vistas en clase.
 
-## Ejercicio 5.5: 
+## Ejercicio 5.16: 
 
-Nos piden resolver por medio del método de RK4 la siguiente ecuación diferencial:
-
-
-$$ p'(x) = mg-kv^2$$
+Nos piden resolver el problema para el caso de la masa Lunar = 0, lo que se reduce al problema de 2 cuerpos.
 
 
 
-Con un tamaño de paso para obtener 4 cifras significativas en un intervalo de 10 segundos y comparar con la solución analítica a O(0).
 
-Código: 
+
+Código cpp: 
+
 
     //============================================
     //
-    // Metodo de RK4 caida con friccion
+    // Metodo de Euler Mejorado para movimiento
+    // gravitacional en 2 dimensiones
     //
     //============================================
 
@@ -30,18 +29,15 @@ Código:
     using namespace std;
 
 
-
-
-
     void RK4( const double *y,
                  const int n_ec,
                  const double t,
                  const double h,
                  double *y_imas1,
                      void (*derivada)( const double *, const double, double * ) );
-    void salidaSolucion( const double t, const double *y, const int N );
-    void caidaLibreFriccion( const double *y, const double t, double *dydt );
 
+    void salidaSolucion( const double t, const double *y, const int N );
+    void movGrav2D_3cuerpos(  const double *y, const double t, double *dydt );
 
 
 
@@ -50,10 +46,15 @@ Código:
     {
       // Datos iniciales
       const double t0 = 0.0;
-      const double h = .05;
-      const int N = 10000; // numero de iteraciones
-      const int out_cada = 1; // output cada out_cada iteraciones
-      const int n_ec = 2; // numero de ecuaciones
+      const double h = 1;
+      const int N = 100000; // numero de iteraciones
+      const int out_cada = 100; // output cada out_cada iteraciones
+      const int n_ec = 12; // numero de ecuaciones
+      //estos parametros nos permiten jugar con las condiciones iniciales de la posicion del cohete
+      const int m = 3;
+      const double theta_init = m*M_PI_4;
+
+      // Archivo que guarda la energia total
 
 
       // reservar espacio para y
@@ -61,13 +62,23 @@ Código:
       double *y_nueva = new double[ n_ec ];
 
       // inicializar cada variable segun las condiciones iniciales
-      y[0]  = 1.0;
-      y[1] = 0.0;
+      y[0]  = 0.0; //tierra x
+      y[1]  = 0.0; // tierra y
+      y[2]  = 3.84e8; //luna x
+      y[3]  = 0.0; //luna y
+      y[4]  = (6800e3)*(cos(theta_init)); //cohete x
+      y[5]  = (6800e3)*(sin(theta_init)); //cohete y
+      y[6]  = 0.0; // tierra vx
+      y[7]  = 0.0; //tierra cy
+      y[8]  = 0.0;//luna vx
+      y[9]  = 1033;//luna vy (promedio de rango de velocidades)
+      y[10] = 650.0; //cohete vx
+      y[11] =650.0; //cohete vy
 
 
       // puntero a la funcion "derivada"
       void (*derivada)( const double *, const double, double * );
-      derivada = caidaLibreFriccion;
+      derivada = movGrav2D_3cuerpos;
 
 
       // inicializar y_nueva
@@ -81,6 +92,7 @@ Código:
       // ciclo de iteraciones
       for( int i=1; i<=N; i++ ){
         RK4( y, n_ec, t, h, y_nueva, derivada );
+        //RK4( y, n_ec, t, h, y_nueva, derivada );
 
         y = y_nueva;
         t = t + h;
@@ -97,18 +109,16 @@ Código:
 
 
 
-
-
-
     void salidaSolucion( const double t, const double *y, const int N )
     {
-      cout << fixed << setprecision(4) << t;
+      cout << fixed << setprecision(3) << t;
 
       for( int i=0; i<N; i++ )
-        cout << scientific << setprecision(4) << "\t" << y[i];
+        cout << scientific << setprecision(9) << "\t" << y[i];
 
       cout << endl;  
     }
+
 
 
 
@@ -158,42 +168,73 @@ Código:
     }
 
 
-    void caidaLibreFriccion( const double *y, const double t, double *dydt )
-    {
-      const double g = 9.8; // aceleracion gravedad
-      const double m = 0.01; // masa
-      const double k = .0001; // constante de friccion
 
-      dydt[0] = y[1];
-      dydt[1] = m*g - k*y[1]*y[1];
+    void movGrav2D_3cuerpos(  const double *y, const double t, double *dydt )
+    {
+      const double m1 = 5.97e24; //masa tierra
+      const double m2 = 0; //masa luna es 0 para este problema
+      const double m3 = 1000; //masa nave
+      const double G  = 6.66e-11; // Constante de gravitacion universal
+
+      // distancias
+      const double r21_3 = pow( pow(y[2]-y[0],2) + pow(y[3]-y[1],2), 1.5 );
+      const double r31_3 = pow( pow(y[4]-y[0],2) + pow(y[5]-y[1],2), 1.5 );
+      const double r32_3 = pow( pow(y[4]-y[2],2) + pow(y[5]-y[3],2), 1.5 );
+
+      dydt[0]  = y[6];
+      dydt[1]  = y[7];
+      dydt[2]  = y[8];
+      dydt[3]  = y[9];
+      dydt[4]  = y[10];
+      dydt[5]  = y[11];
+      dydt[6]  = -G*m2*( y[0]-y[2] ) / r21_3 - G*m3*( y[0]-y[4] ) / r31_3;
+      dydt[7]  = -G*m2*( y[1]-y[3] ) / r21_3 - G*m3*( y[1]-y[5] ) / r31_3;
+      dydt[8]  = -G*m1*( y[2]-y[0] ) / r21_3 - G*m3*( y[2]-y[4] ) / r32_3;
+      dydt[9]  = -G*m1*( y[3]-y[1] ) / r21_3 - G*m3*( y[3]-y[5] ) / r32_3;
+      dydt[10] = -G*m1*( y[4]-y[0] ) / r31_3 - G*m2*( y[4]-y[2] ) / r32_3;
+      dydt[11] = -G*m1*( y[5]-y[1] ) / r31_3 - G*m2*( y[5]-y[3] ) / r32_3;
+
     }
 
 
 
+Código gp: 
+
+         #graficador de utf8
+        set terminal png notransparent
+        set output "ej5-16-1vc.png"
 
 
 
-    void derivada( const double y, const double t, double &dydt )
-    {
-      const double g = 9.8; // aceleracion gravedad
-      const double m = .01; // masa
-      const double k = .0001; // constante de friccion
 
-      dydt = m*g - k*y;
-    }
+        set title "3 Cuerpos no Luna poca vel inicial"
+        set xlabel "x"
+        set ylabel "y"
+
+        plot "datosej5-16pc.txt" using 2:3 w lp lw 1 lc  "black"   title "Tierra", "datosej5-16pc.txt" using 6:7 w lp lw 1 lc "red" title "Cohete"
+
+
 
   
 Solución:
 
 
-Nos piden realizar una comparación entre la velocidad de la solución analítica de un objeto en caída libre contra la solución numérica por medio de RK4 de un objeto cayendo tomando en cuenta la resistencia del aire a O(2). Para producir los resultados vamos a dirigir el output de consola a un archivo, mediante .\programa > datos#ejercicio.txt escritos en UTF-8 y graficar los puntos encontrados en gnuplot. 
 
-![image](https://user-images.githubusercontent.com/100542213/195241429-1b30bfd9-777c-46fb-a1c7-62a47079aee1.png)
-
+Ajustamos el método de 3 cuerpos realizado en clase con los parámetros que nos piden y realizamos un output en consola tipo #ej.txt en utf8. Luego utilizamos gnuplot con las especificaciones anteriormente proporcionadas de nuestro graficador para obtener el comportamiento de la órbita del sistema.
 
 
 
-El sistema con resistencia del aire llega a una velocidad terminal a diferencia de la solución de caída libre que no está acotada, se generaron imágenes que muestran de mejor manera el comportamiento pero son muy pesadas para desplegarlas.
+![image](https://user-images.githubusercontent.com/100542213/196535874-555a5c39-4bc8-40a6-b3bb-ff6822d294fb.png)
+
+Este es el comportamiento para una velocidad inicial orbital.
+
+
+![image](https://user-images.githubusercontent.com/100542213/196535916-f7249fc1-0ba4-4780-a075-ff8aa21129c6.png)
+
+
+Este es el comportamiento para una velocidad menor a la velocidad de escape del punto inicial.
+
+
 
 
 ## Ejercicio 5.7: 
@@ -288,22 +329,12 @@ Adjunto únicamente el archivo cpp ya que los headers son equivalentes a los vis
     }
 
 
-
-
-
+ 
+ 
 Solución:
 
 
-Empleamos el algoritmo proporcionado por los headers vistos en clase y con ello adaptamos la solución para el problema de caída con resistencia cuadrática del aire.
-Los resultados de las gráficas son generados en un archivo solucion.dat y las iteraciones fallidas o aceptadas son impresas en consola.
 
-
-Obtuvimos los siguientes resultados para un h = 0.5:
-
-nok = 117        nbad = 0
-
-
-Ahora no necesitamos tanto espacio en memoria para generar una gráfica que muestre lo deseado, se aumentó el ancho de línea de la solución analítica para que se pudiera visualizar.
 
 
 ![image](https://user-images.githubusercontent.com/100542213/195241516-adbb7ce7-7ac8-4a0d-a005-4a46720a420a.png)
