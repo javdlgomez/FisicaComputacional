@@ -15,7 +15,7 @@ Código cpp:
 
     //============================================
     //
-    // Metodo de Euler Mejorado para movimiento
+    // Metodo de RK4 Mejorado para movimiento
     // gravitacional en 2 dimensiones
     //
     //============================================
@@ -241,7 +241,7 @@ Código cpp:
 
      //============================================
     //
-    // Metodo de Euler Mejorado para movimiento
+    // Metodo de RK4 para movimiento
     // gravitacional en 2 dimensiones
     //
     //============================================
@@ -509,7 +509,7 @@ Código cpp:
 
     //============================================
     //
-    // Metodo de Euler Mejorado para movimiento
+    // Metodo de RK4 para movimiento
     // gravitacional en 2 dimensiones
     //
     //============================================
