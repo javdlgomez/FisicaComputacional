@@ -817,11 +817,12 @@ Realizamos el mismo procedimiento de los ejercicios anteriores, en este caso ten
 
 
 
+Frame #11 de la animación:
+
+
 ![image](https://user-images.githubusercontent.com/100542213/196541499-e132bae2-a0b9-489d-8383-db07930109d7.png)
 
     
    
 
-
-Este es un frame de ejemplo del resultado de la animación.
 
