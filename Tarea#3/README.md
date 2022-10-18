@@ -119,14 +119,6 @@ Código cpp:
       cout << endl;  
     }
 
-
-
-
-
-
-
-
-
     void RK4( const double *y,
                  const int n_ec,
                  const double t,
@@ -356,14 +348,6 @@ Código cpp:
       cout << endl;  
     }
 
-
-
-
-
-
-
-
-
     void RK4( const double *y,
                  const int n_ec,
                  const double t,
@@ -502,7 +486,7 @@ yvst:
  
 Solución:
 
-Realizamos el mismo procedimiento para el problema anterior ajustando las condiciones iniciales en términos de los parámetros v0 y theta_init. Existe un desfaz en las trigonométricas para producir el comportamiento de cercanía deseado.
+Realizamos el mismo procedimiento para el problema anterior ajustando las condiciones iniciales en términos de los parámetros v0 y theta_init. Existe un desfaz en las trigonométricas para producir el comportamiento de cercanía deseado. Luego el resultado producido en consola es guardado en un archivo #ej.txt y es graficado con los scripts presentados anteriormente en gnuplot.
 
 ![image](https://user-images.githubusercontent.com/100542213/196537552-ef60368c-b15c-4adb-9427-c5ca374a8a64.png)
 
@@ -631,14 +615,6 @@ Código cpp:
 
       cout << endl;  
     }
-
-
-
-
-
-
-
-
 
     void RK4( const double *y,
                  const int n_ec,
@@ -828,293 +804,23 @@ creador de frames para animación:
 
 Solución:
 
-Nos piden graficar la posición contra el tiempo para analizar el movimiento del sistema. Para ello utilizamos los headers proporcionados en clase y el resultado es escrito en un archivo .dat.
+Realizamos el mismo procedimiento de los ejercicios anteriores, en este caso tenemos mucho cuidad con las condiciones iniciales. Luego el resultado producido en consola es guardado en un archivo #ej.txt y es graficado con los scripts presentados anteriormente en gnuplot. Para producir la animación se dividie el intervalo de la simulación en 47 imágenes de XvsY de los 3 cuerpos y por medio de ffmpeg se animan en 1s.
+
+![image](https://user-images.githubusercontent.com/100542213/196541393-2a3a01b1-e958-41bb-95e8-6077d49369c5.png)
 
 
-![image](https://user-images.githubusercontent.com/100542213/195241547-1476dbae-7e8d-4af1-95a3-583a3c362173.png)
-
-
-Aquí tenemos un problema ya que el valor proporcionado de epsilón no produce una solución adecuada del sistema, para ello tomamos uno de orden 10-5.
-
-![image](https://user-images.githubusercontent.com/100542213/195241566-ef28c07c-a3fc-4455-867b-5b9018b99e67.png)
+![image](https://user-images.githubusercontent.com/100542213/196541435-a33484be-b08d-4830-8819-c67b3e6da86a.png)
 
 
 
-Ahora ya es posible apreciar el comportamiento oscilatorio de la solución en nuestra gráfica de posición contra el tiempo.
+![image](https://user-images.githubusercontent.com/100542213/196541452-7c1330cd-e6cb-4448-ac7d-adfbaa282d06.png)
+
+
+
+![image](https://user-images.githubusercontent.com/100542213/196541499-e132bae2-a0b9-489d-8383-db07930109d7.png)
+
     
-    
-    
-    
-## Ejercicio 5.12:
-
-Nos piden resolver el péndulo simple para cualquier amplitud utilizando el método adaptativo de RK4, para ello debemos resolver la siguiente ecuación diferencial
-
-
-
-$$ \theta '' = -sin(\theta)$$
-
-
-con las siguientes condiciones iniciales:
-
-
-
-$$  \theta'(0) = 1,2,3,4,5,6 \ \ \ \theta''(0) = 0 $$
-
-
-
-Código:
-
-    Adjunto únicamente el archivo cpp ya que los headers son equivalentes a los vistos en clase
-
-    //============================================
-    //
-    // Metodo de RK4 oscilador
-    //
-    //============================================
-
-    #include <iostream>
-    #include <cmath>
-    #include <iomanip>
-    #include <fstream>
-
-
-    using namespace std;
-
-
-
-
-
-    void RK4( const double *y,
-                 const int n_ec,
-                 const double t,
-                 const double h,
-                 double *y_imas1,
-                     void (*derivada)( const double *, const double, double * ) );
-    void salidaSolucion( const double t, const double *y, const int N );
-    void oscilador( const double *y, const double t, double *dydt );
-
-
-
-
-
-    int main()
-    {
-      // Datos iniciales
-      const double t0 = -10.0;
-      const double h = .5;
-      const int N = 40; // numero de iteraciones
-      const int out_cada = 1; // output cada out_cada iteraciones
-      const int n_ec = 2; // numero de ecuaciones
-
-
-
-      // reservar espacio para y
-      double *y       = new double[ n_ec ];
-      double *y_nueva = new double[ n_ec ];
-
-      // inicializar cada variable segun las condiciones iniciales
-      y[0]  = sqrt(6/4);
-      y[1] = 0.0;
-
-
-      // puntero a la funcion "derivada"
-      void (*derivada)( const double *, const double, double * );
-      derivada = oscilador;
-
-
-      // inicializar y_nueva
-      for( int i=0; i<n_ec; i++ ) y_nueva[i] = 0.0;
-
-      double t = t0;
-
-
-      salidaSolucion( t, y, n_ec );
-
-      // ciclo de iteraciones
-      for( int i=1; i<=N; i++ ){
-        RK4( y, n_ec, t, h, y_nueva, derivada );
-
-        y = y_nueva;
-        t = t + h;
-
-        if ( i%out_cada == 0){
-          salidaSolucion( t, y, n_ec );
-        }
-
-      }
-
-      return 0;
-    }
-
-
-
-
-
-
-
-    void salidaSolucion( const double t, const double *y, const int N )
-    {
-      cout << fixed << setprecision(4) << t;
-
-      for( int i=0; i<N; i++ )
-        cout << scientific << setprecision(4) << "\t" << y[i];
-
-      cout << endl;  
-    }
-
-
-
-
-
-
-
-
-    void RK4( const double *y,
-                 const int n_ec,
-                 const double t,
-                 const double h,
-                 double *y_imas1,
-                 void (*derivada)( const double *, const double, double * ) )
-    {
-      double *k0 = new double[ n_ec ];
-      double *k1 = new double[ n_ec ];
-      double *k2 = new double[ n_ec ];
-      double *k3 = new double[ n_ec ];
-      double *z  = new double[ n_ec ];
-
-      (*derivada)( y, t, k0 );
-
-      for( int i=0; i<n_ec; i++ )
-        z[i] = y[i] + 0.5*k0[i]*h;
-
-      (*derivada)( z, t+0.5*h, k1 );
-
-      for( int i=0; i<n_ec; i++ )
-        z[i] = y[i] + 0.5*k1[i]*h;
-
-      (*derivada)( z, t+0.5*h, k2 );
-
-      for( int i=0; i<n_ec; i++ )
-        z[i] = y[i] + k2[i]*h;
-
-      (*derivada)( z, t+h, k3 );
-
-      for( int i=0; i<n_ec; i++ )
-       y_imas1[i] = y[i] + h/6.0 * ( k0[i] + 2*k1[i] + 2*k2[i] + k3[i] );
-
-      delete[] k0;
-      delete[] k1;
-      delete[] k2;
-      delete[] k3;
-      delete[] z;
-    }
-
-
-    void oscilador( const double *y, const double t, double *dydt )
-    {
-      const double g = 9.8; // aceleracion gravedad
-      const double m = 0.01; // masa
-      const double k = .0001; // constante de friccion
-
-      dydt[0] = y[1];
-      dydt[1] = -sin(y[0]);
-    }
-
-
-
-
-
-
-    void derivada( const double y, const double t, double &dydt )
-    {
-      const double g = 9.8; // aceleracion gravedad
-      const double m = .01; // masa
-      const double k = .0001; // constante de friccion
-
-      dydt = -sin(y);
-    }
-    
-    
-    
-  Solución: 
-  
-  
-Nos piden graficar los diagramas de fase para los niveles de energía pedidos, el libro nos pide considerar el comportamiento del sistema para distintas energías. Teorícamente esperamos que haya un cambio en el comportamiento del sistema cuando la energía cinéctica supera cierto margen. Pero aquí es donde nos encontramos con uno de los problemas de utilizar métodos numéricos y del por qué es importante la comuniación entre la teoría y la práctica.
-
-Nuestro sistema no presentó el cambio para producir órbitas abiertas después de E=1, estuve buscando cuál podría ser la razón de esto ya que cambiando algunos parámetros pude encontrar comportamientos distintos, ya que no sucedió lo mismo utilizando nuestros scripts de Euler. Al parecer para obtener el resultado esperado utilizando este script es una combinación de colocar correctamente los parámetros en los pasos para que nuestro programa pueda diferenciar el seno de la aproximación en ángulos pequeños. En este caso no llegamos al resultado deseado pero descartamos un camino posible para tomar y que sería recomendado utilizar el método de RK4 adaptativo.
-
-Para los parámetros dados que se encuentran anteriormente en el código nuestro resultado de diagramas de fase es el siguiente:
-
-
-![image](https://user-images.githubusercontent.com/100542213/195241900-a2593172-2b20-4a06-8fa8-6d57862c7e89.png)
-
-
-Este comportamiento es idéntico al esperado por la aproximación en movimiento armónico simple donde las órbitas nunca se abren. 
-
-
-Jugando con los parámetros logramos reproducir el corte en E=1 en donde las elipses se empiezan a cortar hasta abrirse:
-
-
-![image](https://user-images.githubusercontent.com/100542213/195241918-b510a36f-8c6b-47cc-8e5f-93fd2812bf64.png)
-
-
-
-
-## Ejercicio 5.13: 
-
-Nos piden animar el péndulo simple, para ello vamos a tomar los resultados de la curva de E=.25
-
-
-
-Código: 
-
-    #Generador de imagenes para la animacion
-
-
-
-
-    #Si no hacemos esto no cargan las imágenes y solo las tira en consola
-
-    set terminal pngcairo size 1024,1024 enhanced font "Verdana,12"
-
-
-    #Ponemos nuestros ejes, en teoría están en metros pero así
-    #se sobrecarga menos la animacion
-
-    set xlabel 'x'
-    set ylabel 'y'
-
-    #Si no hacemos esto se comprime la imagen conforme la gráfica se vuelve horizontal o vertical
-    set xrange [-1:1]
-    set yrange [-1.5:.5]
-
-
-    set title ""
-    do for [i=0:19] {
-
-        #colocamos la expresion regular para poder usar ffmpeg despues
-        set output sprintf( "animacion/animacion%02d.png", i )
-
-        #$2 significa que lo sacamos de la segunda columna de nuestros datos
-
-        #esta es la cabeza del pendulo
-        plot 'd5-12Ep25.txt' every ::i::i u (x1=sin($2)):(y1=-cos($2)) linetype rgb "red"  lw 100 title "" , \
-         '' every ::i::i u (0.0):(0.0):(x1):(y1) with vectors nohead  title ""
-        #aqui hacemos la cuerda del pendulo que va desde el origen hasta el punto del del dataset
-        print i
-    }
-
-
-    # Para correrlo necesitamos ffmpeg en path o en la misma carpeta y lo corremos con
-    # ffmpeg -r 10 -i animacion$02d.png -pix_fmt yuv420p animacion.mp4
-
-  
-Solución:
-
-Generamos en Gnuplot por medio de un ciclo una imagen para cada punto obtenido en el dataset que están en intervalos de .5s, para ello necesitamos establecer los parámetros del output de la imagen. Además estilizamos un poco para que se vea una masa unida a una cuerda y tenemos un poco de cuidado con la generación de los nombres y en donde se encontraran almacenados. Una vez generadas las imágenes utilizamos ffmpeg para realizar una animación con 10 imágenes por segundo del péndulo simple, estos parámetros fueron elegidos por estilización aunque eso sacrifica la fidelidad física del experimento, esto se hizo para ejemplificar el proceso de animación ya que solo se deben obtener datos con mayor finura que avancen al mismo ritmo del tiempo para producir una simulación que intente ejemplicar la realidad.
-
-![image](https://user-images.githubusercontent.com/100542213/195241958-d451d5db-0353-47db-acbc-0fe89937773d.png)
-
+   
 
 
 Este es un frame de ejemplo del resultado de la animación.
