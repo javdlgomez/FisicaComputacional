@@ -4,7 +4,7 @@ Solución distintos casos de la ecuación de onda con el método de diferencias 
 
 ## Ejercicio 7.1: 
 
-Nos piden resolver el problema para el caso de la masa Lunar = 0, lo que se reduce al problema de 2 cuerpos.
+Nos piden resolver la función de onda con extremos fijos con las condiciones iniciales proporcionadas por el libro.
 
 
 
@@ -177,14 +177,14 @@ Para resolver este ejercicio debemos interpretar los datos proporcionados por el
 
  $$ dx = \frac{L}{N}, \ \
  c = \sqrt{T/\mu}, \ \  
- \alpha = dt\frac{vel}{dx}
+ \alpha = dt\frac{c}{dx}
  $$
 
 
 
-![image](https://user-images.githubusercontent.com/100542213/196535874-555a5c39-4bc8-40a6-b3bb-ff6822d294fb.png)
+![image](https://user-images.githubusercontent.com/100542213/197675150-fe30b10a-ed51-4feb-8167-a4836f4dcb6e.png)
 
-Este es el comportamiento para una velocidad inicial orbital.
+Onda resultante de resolver la ecuación con los parámetros indicados.
 
 
 ![image](https://user-images.githubusercontent.com/100542213/196535916-f7249fc1-0ba4-4780-a075-ff8aa21129c6.png)
