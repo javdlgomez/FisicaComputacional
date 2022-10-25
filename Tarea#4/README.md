@@ -175,8 +175,8 @@ Solución:
 
 Para resolver este ejercicio debemos interpretar los datos proporcionados por el libro en nuestra definición de código. Para ello tomamos h como la medida de un paso, esto quiere decir que $N = Lh = 100$. De la misma manera encontramos los demás elementos pedidos con las siguientes relaciones:
 
- $$ dx = \frac{L}/{N}
- v = \sqrt{T/\mu} 
+ $$ dx = \frac{L}{N}, \ \
+ c = \sqrt{T/\mu}, \ \  
  \alpha = dt\frac{vel}{dx}
  $$
 
