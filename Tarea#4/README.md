@@ -180,25 +180,17 @@ Para resolver este ejercicio debemos interpretar los datos proporcionados por el
  \alpha = dt\frac{c}{dx}
  $$
 
+Resolvemos la ecuación por el método de diferencias finitas y el resultado lo guardamos en un archivo solucion.dat codigicado en utf8, y los datos de la posición del mismo son graficados por medio de un script gpp para verificar el resultado.
 
 
 ![image](https://user-images.githubusercontent.com/100542213/197675150-fe30b10a-ed51-4feb-8167-a4836f4dcb6e.png)
 
-Onda resultante de resolver la ecuación con los parámetros indicados.
-
-
-![image](https://user-images.githubusercontent.com/100542213/196535916-f7249fc1-0ba4-4780-a075-ff8aa21129c6.png)
-
-
-Este es el comportamiento para una velocidad inicial que no puede vencer la atracción gravitacional de la tierra.
-
-
-También esperamos otra solución para una velocidad mayor a la orbital en la que el cohete escapa a la tierra.
+Onda resultante de resolver la ecuación con los parámetros indicados, se tomaron 200 iteraciones para poder apreciar mejor el comportamiento.
 
 
 
 
-## Ejercicio 5.17: 
+## Ejercicio 7.2:
 
 Nos piden encontrar condiciones iniciales en las que el cohete logre acercarse lo más posible a la Luna (a menos de 300km del centro del satélite)
 
