@@ -192,255 +192,159 @@ Onda resultante de resolver la ecuación con los parámetros indicados, se tomar
 
 ## Ejercicio 7.2:
 
-Nos piden encontrar condiciones iniciales en las que el cohete logre acercarse lo más posible a la Luna (a menos de 300km del centro del satélite)
+Nos piden realizar una animación de un sistema similar al anterior pero con una función de velocidad inicial dada.
 
 Código cpp:
 
 
-     //============================================
+    //===================================================
     //
-    // Metodo de RK4 para movimiento
-    // gravitacional en 2 dimensiones
+    // Ecuacion de onda con diferencias finitas
     //
-    //============================================
+    //===================================================
+
 
     #include <iostream>
-    #include <cmath>
-    #include <iomanip>
     #include <fstream>
-
+    #include <cmath>
 
     using namespace std;
 
-
-    void RK4( const double *y,
-                 const int n_ec,
-                 const double t,
-                 const double h,
-                 double *y_imas1,
-                     void (*derivada)( const double *, const double, double * ) );
-
-    void salidaSolucion( const double t, const double *y, const int N );
-    void movGrav2D_3cuerpos(  const double *y, const double t, double *dydt );
-
-
+    double f_cond_ini( double x );
+    double g_cond_ini( double x , double vel);
+    double w_cond_frontera( double t ,double vel);
+    double z_cond_frontera( double t ,double vel);
+    void output( ostream &of, double *u, double *x, double t, int N );
 
 
     int main()
     {
-      // Datos iniciales
-      const double t0 = 0.0;
-      const double h = 1;
-      const int N = 20000; // numero de iteraciones
-      const int out_cada = 100; // output cada out_cada iteraciones
-      const int n_ec = 12; // numero de ecuaciones
-      //estos parametros nos permiten jugar con las condiciones iniciales de la posicion del cohete
-      const int m = 0;
-      const double theta_init = m*M_PI_4;
-      const double v0 = 25000; // velocidad inicial
+      int N = 100; //numero de puntos en x
+      int out_cada = 1; //output cada no. de iteraciones
+      double L = 1.0; //longitud del dominio en x
+      double dx = L/N;
+      double vel = sqrt(10/(.001/1)); // velocidad de la onda
+      double dt = 0.0001;  
+      double alfa = dt*vel/dx;
+      int Niter = 20; // numero de iteraciones en el tiempo
+     //aquí si nos piden que sea 20 y se entiende el comportamiento con esas 
 
-      // Archivo que guarda la energia total
+      double tiempo = 0.0; // lleva la cuenta del tiempo
+      ofstream outfile;
+      outfile.open( "solucion.dat", ios::out );
 
-
-      // reservar espacio para y
-      double *y       = new double[ n_ec ];
-      double *y_nueva = new double[ n_ec ];
-
-      // inicializar cada variable segun las condiciones iniciales
-      y[0]  = 0.0; //tierra x
-      y[1]  = 0.0; // tierra y
-      y[2]  = 3.84e8; //luna x
-      y[3]  = 0.0; //luna y
-      y[4]  = (6800e3)*(cos(theta_init)); //cohete x
-      y[5]  = (6800e3)*(sin(theta_init)); //cohete y
-      y[6]  = 0.0; // tierra vx
-      y[7]  = 0.0; //tierra cy
-      y[8]  = 0.0;//luna vx
-      y[9]  = 1033;//luna vy (promedio de rango de velocidades)
-      y[10] = v0*cos(theta_init+.04); //cohete vx
-      y[11] = v0*sin(theta_init+.04); //cohete vy
-
-      //de esta forma podemos con parametros theta y v0 cambiar las condiciones iniciales
+      // variables para u
+      double *u_nueva = new double[N+1]; // u_{i,j+1}
+      double *u       = new double[N+1]; // u_{i,j}
+      double *u_vieja = new double[N+1]; // u_{i,j-1}
+      double *x       = new double[N+1]; // coordenada x
 
 
-      // puntero a la funcion "derivada"
-      void (*derivada)( const double *, const double, double * );
-      derivada = movGrav2D_3cuerpos;
+      // coordenada x
+      for( int i=0; i<N+1; i++ )
+        x[i] = i*dx;
+
+      // condiciones iniciales u_{i0}
+      for( int i=0; i<N+1; i++ )
+        u_vieja[i] = f_cond_ini( x[i] );
+
+      // condiciones iniciales u_{i1}
+      for( int i=0; i<N+1; i++ )
+        u[i] = u_vieja[i] + g_cond_ini( x[i] ,vel) * dt;
 
 
-      // inicializar y_nueva
-      for( int i=0; i<n_ec; i++ ) y_nueva[i] = 0.0;
+      // condicion de frontera
+      u[0] = w_cond_frontera( 0.0 ,vel);
+      u[N] = z_cond_frontera( 0.0 ,vel);
 
-      double t = t0;
 
+      tiempo += dt;
 
-      salidaSolucion( t, y, n_ec );
+      // ciclo principal
+      for( int j=0; j<=Niter; j++ ){
+        for( int i=1; i<N; i++ )
+          u_nueva[i] = 2.*(1.-alfa*alfa) * u[i] + alfa*alfa*(u[i-1] + u[i+1]) - u_vieja[i];
 
-      // ciclo de iteraciones
-      for( int i=1; i<=N; i++ ){
-        RK4( y, n_ec, t, h, y_nueva, derivada );
-        //RK4( y, n_ec, t, h, y_nueva, derivada );
+        // condicion de frontera
+        u_nueva[0] = w_cond_frontera( tiempo + dt ,vel);
+        u_nueva[N] = z_cond_frontera( tiempo + dt ,vel);
 
-        y = y_nueva;
-        t = t + h;
-
-        if ( i%out_cada == 0){
-          salidaSolucion( t, y, n_ec );
+        // cambiar instantes de tiempo
+        for(int i=0; i<N+1; i++ ){
+          u_vieja[i] = u[i];
+          u[i]       = u_nueva[i];
         }
 
+        tiempo += dt;
+
+        // output
+        if ( j % out_cada == 0 )
+          output( outfile, u, x, tiempo, N );
+
       }
+
+
 
       return 0;
     }
 
 
 
-
-    void salidaSolucion( const double t, const double *y, const int N )
+    void output( ostream &of, double *u, double *x, double t, int N )
     {
-      cout << fixed << setprecision(3) << t;
+      for( int i=0; i<N+1; i++ )
+        of << t << "\t" << x[i] << "\t" << u[i] << endl;
 
-      for( int i=0; i<N; i++ )
-        cout << scientific << setprecision(9) << "\t" << y[i];
-
-      cout << endl;  
-    }
-
-    void RK4( const double *y,
-                 const int n_ec,
-                 const double t,
-                 const double h,
-                 double *y_imas1,
-                 void (*derivada)( const double *, const double, double * ) )
-    {
-      double *k0 = new double[ n_ec ];
-      double *k1 = new double[ n_ec ];
-      double *k2 = new double[ n_ec ];
-      double *k3 = new double[ n_ec ];
-      double *z  = new double[ n_ec ];
-      double dx = (y[4]-y[6])*(y[4]-y[6]);
-      double dy = (y[5]-y[7])*(y[5]-y[7]);
-      double dis = sqrt(dx+dy);
-
-
-      (*derivada)( y, t, k0 );
-
-      for( int i=0; i<n_ec; i++ )
-        z[i] = y[i] + 0.5*k0[i]*h;
-
-      (*derivada)( z, t+0.5*h, k1 );
-
-      for( int i=0; i<n_ec; i++ )
-        z[i] = y[i] + 0.5*k1[i]*h;
-
-      (*derivada)( z, t+0.5*h, k2 );
-
-      for( int i=0; i<n_ec; i++ )
-        z[i] = y[i] + k2[i]*h;
-
-
-
-
-        ;
-
-      (*derivada)( z, t+h, k3 );
-
-      for( int i=0; i<n_ec; i++ )
-
-       y_imas1[i] = y[i] + h/6.0 * ( k0[i] + 2*k1[i] + 2*k2[i] + k3[i] );
-        //if ( pow(((y[4]-y[6]^2+(y[5]-y[7]^2)),.5))){
-
-
-
-
-      delete[] k0;
-      delete[] k1;
-      delete[] k2;
-      delete[] k3;
-      delete[] z;
+      of << endl << endl;
     }
 
 
 
-    void movGrav2D_3cuerpos(  const double *y, const double t, double *dydt )
+    double f_cond_ini( double x )
     {
-      const double m1 = 5.97e24; //masa tierra
-      const double m2 = 7.34e22; //masa luna es 0 para este problema
-      const double m3 = 1000; //masa nave
-      const double G  = 6.66e-11; // Constante de gravitacion universal
-
-      // distancias
-      const double r21_3 = pow( pow(y[2]-y[0],2) + pow(y[3]-y[1],2), 1.5 );
-      const double r31_3 = pow( pow(y[4]-y[0],2) + pow(y[5]-y[1],2), 1.5 );
-      const double r32_3 = pow( pow(y[4]-y[2],2) + pow(y[5]-y[3],2), 1.5 );
-
-      dydt[0]  = y[6];
-      dydt[1]  = y[7];
-      dydt[2]  = y[8];
-      dydt[3]  = y[9];
-      dydt[4]  = y[10];
-      dydt[5]  = y[11];
-      dydt[6]  = -G*m2*( y[0]-y[2] ) / r21_3 - G*m3*( y[0]-y[4] ) / r31_3;
-      dydt[7]  = -G*m2*( y[1]-y[3] ) / r21_3 - G*m3*( y[1]-y[5] ) / r31_3;
-      dydt[8]  = -G*m1*( y[2]-y[0] ) / r21_3 - G*m3*( y[2]-y[4] ) / r32_3;
-      dydt[9]  = -G*m1*( y[3]-y[1] ) / r21_3 - G*m3*( y[3]-y[5] ) / r32_3;
-      dydt[10] = -G*m1*( y[4]-y[0] ) / r31_3 - G*m2*( y[4]-y[2] ) / r32_3;
-      dydt[11] = -G*m1*( y[5]-y[1] ) / r31_3 - G*m2*( y[5]-y[3] ) / r32_3;
-
+      double L = 1.0; // longitud de la cuerda
+      //return sin(4*2.*M_PI*x);
+      //return exp(-100*pow(x-L/2,2));
+      return 0.0;
     }
 
 
- Código de los gps:
- 
- 
- XvsY:
- 
- 
-     #graficador de utf8
-    set terminal png notransparent
-    set output "ej5-17xy.png"
+    double g_cond_ini( double x ,double vel)
+    {
+      double L = 1.0; // longitud de la cuerda
+      return -200*vel*(x-.5)*exp(-100*((x-0)-.5)*((x-0)-.5));
+    }
+
+
+    double w_cond_frontera( double t ,double vel)
+    {
+      return exp(-100*((0+vel*t)-.5)*((0+vel*t)-.5));
+    }
+
+
+    double z_cond_frontera( double t ,double vel)
+    {
+      return exp(-100*((1+vel*t)-.5)*((1+vel*t)-.5));
+    }
+
+Código gp:
 
 
 
+    set yrange [-2.5:2.5]
+    set xrange [0:.5]
+    dt=0.0001
+    set ylabel "y(m)"
+    set xlabel "x(m)"
 
-    set title "3 Cuerpos Aterrizaje XvsY "
-    set xlabel "x(Mm)"
-    set ylabel "y(Mm)"
+    do for [it=0:20] {
+        set title sprintf( "t = %f (s)", it*dt )
+        plot 'solucion.dat' index it u 2:3 w l  title "Solucion 20 Iter"
 
-    plot  "datosej5-17.txt" using ($6/1e6):($7/1e6) w lp lw .5 lc "red" title "Cohete",  "datosej5-17.txt" using ($4/1e6):($5/1e6) w lp lw .5 lc "blue" title "Luna"
-    
-    
-xvst:
+        pause .5
+        #como son menos alargué un poco la animación
+    }
 
-     #graficador de utf8
-    set terminal png notransparent
-    set output "ej5-17.png"
-
-
-
-
-    set title "3 Cuerpos aterrizaje xvst "
-    set xlabel "t(s)"
-    set ylabel "x (m)"
-
-    plot  "datosej5-17.txt" using 1:6 w lp lw .5 lc "red" title "Cohete",  "datosej5-17.txt" using 1:4 w lp lw .5 lc "blue" title "Luna"
-    
-    
-    
-yvst: 
-
-    #graficador de utf8
-    set terminal png notransparent
-    set output "ej5-17y.png"
-
-
-
-
-    set title "3 Cuerpos aterrizaje yvst"
-    set xlabel "t(s)"
-    set ylabel "y (m)"
-
-    plot  "datosej5-17.txt" using 1:7 w lp lw .5 lc "red" title "Cohete",  "datosej5-17.txt" using 1:5 w lp lw .5 lc "blue" title "Luna"
  
 Solución:
 
