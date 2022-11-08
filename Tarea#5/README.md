@@ -8,7 +8,7 @@ Solución distintos casos de la ecuación de onda con el método de diferencias 
 
 ## Ejercicio 7.7: 
 
-Nos piden resolver y luego como extra modelar la solución de las isotermas de la ecuación de calor estacionaria en 2D por medio del método de SOR, en un cuadrado de 1m de largo con una red de 9x9 y como condiciones de frontera nos piden una temperatura de 100 en los bordes izquierdo e inferior y una temperatura de 0 en los bordes derecho y superior.
+Nos piden resolver y luego como extra modelar la solución de las isotermas de la ecuación de calor estacionaria en 2D por medio del método de SOR. Esto en un cuadrado de 1m de largo con una red de 9x9 y para las condiciones de frontera nos piden una temperatura de 100 en los bordes izquierdo e inferior y una temperatura de 0 en los bordes derecho y superior.
 
 
 
