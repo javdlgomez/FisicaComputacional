@@ -1,7 +1,7 @@
 
 # Tarea#4
 
-Solución de la ecucación de Calor en una red 2D.
+Solución de la ecucación de Calor estacionaria en una red 2D.
 
 
 
@@ -152,22 +152,26 @@ Código cpp:
 
     double p1( double x )
     {
+    //borde inferior
       return 100;
     }
 
     double p2( double x )
     {
+    //borde sup
       return 0.0;
     }
 
 
     double q1( double y )
     {
+    //borde izq
       return 100;
     }
 
     double q2( double y)
     {
+    //borde der
       return 0.0;
     }
 
@@ -198,15 +202,17 @@ Código gp:
 Solución:
 
 
-Resolvemos la ecuación por el método de diferencias finitas y el resultado lo guardamos en un archivo solucion.dat codigicado en utf8, y los datos de la posición del mismo son graficados por medio de un script gpp para verificar el resultado. Realizamos 2 iteraciones distintas con las condiciones iniciales pedidas (signos iguales/signos distintos).
+Resolvemos la ecuación de calor estacionaria por el método SOR en una red de 9x9 y el resultado lo guardamos en un archivo solucion.dat codificado en utf8, estos son graficados por medio de un script gpp para estudiar el comportamiento del resultado. Realizamos 2 tipos de gráficas distintas, un mapa de calor y la gráfica de las curvas isotermas.
 
-![image](https://user-images.githubusercontent.com/100542213/198173794-952c4c0b-afd1-430e-b448-103980ce97fd.png)
 
-Interferencia Constructiva alpha y beta del mismo signo.
+![image](https://user-images.githubusercontent.com/100542213/200505060-111c180e-6276-4cda-ba11-f80477630a55.png)
 
-![image](https://user-images.githubusercontent.com/100542213/198173805-ae3658cb-9a1e-4b80-aac7-9d7055bfa7b3.png)
+Gráfica de las isotermas de la solución.
 
-Interferencia Destructiva alpha y beta de signos distintos.
+![image](https://user-images.githubusercontent.com/100542213/200505139-309aafcb-60b0-47ac-9b8c-1794e5d00f56.png)
+
+
+Mapa de calor de la solución.
 
 
 
