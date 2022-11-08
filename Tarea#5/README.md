@@ -1,8 +1,7 @@
 
 # Tarea#4
 
-Solución distintos casos de la ecuación de onda con el método de diferencias finitas.
-
+Solución de la ecucación de Calor en una red 2D.
 
 
 
