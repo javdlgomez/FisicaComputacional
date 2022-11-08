@@ -175,10 +175,6 @@ Código cpp:
       return 0.0;
     }
 
-    
-Código gp:
-
-
 
 
 Código gp:
