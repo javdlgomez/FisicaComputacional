@@ -3,7 +3,7 @@
 
 Solución distintos casos de la ecuación de onda con el método de diferencias finitas.
 
-## Ejercicio 7.1: 
+## Ejercicio 7.7: 
 
 Nos piden resolver la función de onda con extremos fijos con las condiciones iniciales proporcionadas por el libro.
 
@@ -14,144 +14,7 @@ Nos piden resolver la función de onda con extremos fijos con las condiciones in
 Código cpp: 
 
 
-    //===================================================
-    //
-    // Ecuacion de onda con diferencias finitas
-    //
-    //===================================================
-
-
-    #include <iostream>
-    #include <fstream>
-    #include <cmath>
-
-    using namespace std;
-
-    double f_cond_ini( double x );
-    double g_cond_ini( double x );
-    double w_cond_frontera( double t ,double vel);
-    double z_cond_frontera( double t ,double vel);
-    void output( ostream &of, double *u, double *x, double t, int N );
-
-
-    int main()
-    {
-      int N = 100; //numero de puntos en x
-      //este aparece de que h es 1cm por lo tanto necesitamos 100 puntos de grid
-
-      int out_cada = 1; //output cada no. de iteraciones
-      double L = 1.0; //longitud del dominio en x
-      double dx = L/N;
-      double vel = sqrt(10/(.001/1)); // velocidad de la onda
-      //para esta nos dan la tensión y densidad lineal de masa
-      double dt = 0.0001;  //cond inicial dada
-      double alfa = dt*vel/dx; //despejamos la ecuación
-      //este es la raiz cuadrada del epsilon del libro
-
-      int Niter = 200; // numero de iteraciones en el tiempo
-      //aquí tomé 200 para que la animación se viera lo suficiente
-
-      double tiempo = 0.0; // lleva la cuenta del tiempo
-      ofstream outfile;
-      outfile.open( "solucion.dat", ios::out );
-
-      // variables para u
-      double *u_nueva = new double[N+1]; // u_{i,j+1}
-      double *u       = new double[N+1]; // u_{i,j}
-      double *u_vieja = new double[N+1]; // u_{i,j-1}
-      double *x       = new double[N+1]; // coordenada x
-
-
-      // coordenada x
-      for( int i=0; i<N+1; i++ )
-        x[i] = i*dx;
-
-      // condiciones iniciales u_{i0}
-      for( int i=0; i<N+1; i++ )
-        u_vieja[i] = f_cond_ini( x[i] );
-
-      // condiciones iniciales u_{i1}
-      for( int i=0; i<N+1; i++ )
-        u[i] = u_vieja[i] + g_cond_ini( x[i] ) * dt;
-
-
-      // condicion de frontera
-      u[0] = w_cond_frontera( 0.0 ,vel);
-      u[N] = z_cond_frontera( 0.0 ,vel);
-
-
-      tiempo += dt;
-
-      // ciclo principal
-      for( int j=0; j<=Niter; j++ ){
-        for( int i=1; i<N; i++ )
-          u_nueva[i] = 2.*(1.-alfa*alfa) * u[i] + alfa*alfa*(u[i-1] + u[i+1]) - u_vieja[i];
-
-        // condicion de frontera
-        u_nueva[0] = w_cond_frontera( tiempo + dt ,vel);
-        u_nueva[N] = z_cond_frontera( tiempo + dt ,vel);
-
-        // cambiar instantes de tiempo
-        for(int i=0; i<N+1; i++ ){
-          u_vieja[i] = u[i];
-          u[i]       = u_nueva[i];
-        }
-
-        tiempo += dt;
-
-        // output
-        if ( j % out_cada == 0 )
-          output( outfile, u, x, tiempo, N );
-
-      }
-
-
-
-      return 0;
-    }
-
-
-
-    void output( ostream &of, double *u, double *x, double t, int N )
-    {
-      for( int i=0; i<N+1; i++ )
-        of << t << "\t" << x[i] << "\t" << u[i] << endl;
-
-      of << endl << endl;
-    }
-
-
-
-    double f_cond_ini( double x )
-    {
-      double L = 1.0; // longitud de la cuerda
-      //return sin(4*2.*M_PI*x);
-      //return exp(-100*pow(x-L/2,2));
-      return 0.0;
-    }
-
-
-    double g_cond_ini( double x )
-    {
-      double L = 1.0; // longitud de la cuerda
-      //return 10*exp(-100*pow(x-L/2,2));
-      return 0.0;
-    }
-
-
-    double w_cond_frontera( double t ,double vel)
-    {
-      return exp(-100*((0-vel*t)-.5)*((0-vel*t)-.5));
-    }
-
-
-    double z_cond_frontera( double t ,double vel)
-    {
-      return exp(-100*((1-vel*t)-.5)*((1-vel*t)-.5));
-    }
-
-
-
+   
 
 Código gp: 
 
@@ -521,18 +384,179 @@ Código gp:
 
 
 
-    set yrange [-5:5]
-    set xrange [0:1]
-    dt=0.0001
-    set ylabel "y(m)"
-    set xlabel "x(m)"
-    #cuidado al momento de graficar ya que cambie los nombres de las bases de datos para que se diferenciaran
-    do for [it=0:100] {
-        set title sprintf( "t = %f (s)", it*dt )
-        plot 'solucion.dat' index it u 2:3 w l  title "Solucion Destructiva 100 Iter"
+    //============================================
+    //
+    // Ecuacion de calor en estado estacionario
+    // por el metodo SOR
+    //
+    //=============================================
 
-        pause 0.05
+
+    #include <cmath>
+    #include <iostream>
+    #include <fstream>
+
+    using namespace std;
+
+
+
+    void output( ostream &of, double **u, double *x, double *y, int Nx, int Ny );
+    double p1( double x );
+    double p2( double x );
+    double q1( double y );
+    double q2( double y );
+
+
+
+
+    int main()
+    {
+      int ITMAX = 10000; // maximo numero de iteraciones
+      double eps = 1e-8; // tolerancia de error
+      int Nx = 9;
+      int Ny = 9;
+      double Lx = 1.0;
+      double Ly = 1.0;
+      double dx = Lx/Nx;
+      double dy = dx;
+      double alpha = 0.2; // factor para acelerar convergencia en SOR
+      ofstream of( "solucion.dat", ios::out);
+
+
+      // reservar memoria
+      double *x        = new double[Nx+1];
+      double *y        = new double[Nx+1];
+      double **u       = new double*[Nx+1];
+      double **u_nueva = new double*[Nx+1];
+
+      for( int i=0; i<Nx+1; i++ ){
+        u_nueva[i] = new double[Ny+1];
+        u[i]       = new double[Ny+1];
+      }
+
+
+      // coordenadas
+      for( int i=0; i<Nx+1; i++ ) x[i] = i*dx;
+      for( int j=0; j<Ny+1; j++ ) y[j] = j*dy;
+
+
+      // inicializar temperatura
+      for( int i=0; i<Nx+1; i++ ){
+        for( int j=0; j<Ny+1; j++ ){
+          u[i][j]       = 0.0;
+          u_nueva[i][j] = 0.0;
+        }
+      }
+
+
+      // condiciones de frontera
+      // lado inferior
+      for( int i=0; i<Nx+1; i++ ) u[i][0]  = p1( x[i] );
+
+      // lado superior
+      for( int i=0; i<Nx+1; i++ ) u[i][Ny] = p2( x[i] );
+
+      // lado izquierdo
+      for( int j=0; j<Ny+1; j++ ) u[0][j]  = q1( y[j] );
+
+      // lado derecho
+      for( int j=0; j<Ny+1; j++ ) u[Nx][j] = q2( y[j] );
+
+
+      // ciclo principal de SOR
+      bool seguimos = true; // condicion de salida
+      int k = 0; // numero de iteraciones
+
+
+      cout << "Iniciando SOR" << endl;
+
+      while( seguimos ){
+        if ( k > ITMAX ){
+          cerr << "Se alcanzó el número máximo de iteraciones para SOR" << endl;
+          exit(1);
+        }
+
+        seguimos = false;
+
+        for( int i=1; i<Nx; i++ ){
+          for( int j=1; j<Ny; j++ ){
+        u_nueva[i][j] = 0.25 * ( u[i+1][j] + u[i-1][j] + u[i][j-1] + u[i][j+1] );
+
+        // verificamos si seguimos o no
+        if ( fabs( u_nueva[i][j] - u[i][j] ) > eps )
+          seguimos = true;
+
+        // cambiamos iteraciones
+        u[i][j] = u_nueva[i][j] + alpha*( u_nueva[i][j] - u[i][j] );	
+          }
+        }
+
+        // terminamos la iteracion
+        k++;
+      }
+
+
+      cout << "SOR finalizó en " << k << " iteraciones" << endl;
+
+      // escribir solucion
+      output( of, u, x, y, Nx, Ny );
+
+
+      return 0;
     }
+
+
+
+
+    void output( ostream &of, double **u, double *x, double *y, int Nx, int Ny )
+    {
+      for( int i=0; i<Nx+1; i++ ){
+        for( int j=0; j<Ny+1; j++ )
+          of << x[i] << "\t" << y[j] << "\t" << u[i][j] << endl;
+
+        of << endl;
+      }
+    }
+
+
+
+
+    double p1( double x )
+    {
+      return 100;
+    }
+
+    double p2( double x )
+    {
+      return 0.0;
+    }
+
+
+    double q1( double y )
+    {
+      return 100;
+    }
+
+    double q2( double y)
+    {
+      return 0.0;
+    }
+
+Código gp:
+
+
+set terminal qt
+set yrange [0:1]
+set xrange [0:1]
+set ylabel "y(m)"
+set xlabel "x(m)"
+
+
+sp  "solucion.dat" title "Mapa de Calor Solucion" with image
+
+
+save "hm.gp"
+
 
 
 Solución:
@@ -550,184 +574,4 @@ Interferencia Destructiva alpha y beta de signos distintos.
 
 
 
-## Ejercicio 7.4: 
 
-Nos piden simular la ecuación diferencial anterior con extremos fijos para 500 iteraciones y reportar si se observa el fenómeno de inversión de fase.
-
-
-
-Código cpp: 
-
-
-    //===================================================
-    //
-    // Ecuacion de onda con diferencias finitas
-    //
-    //===================================================
-
-
-    #include <iostream>
-    #include <fstream>
-    #include <cmath>
-
-    using namespace std;
-
-    //podiamos definir C como global o añadirla a los métodos
-    //ya que la solucion de la eq de onda es de tipo
-    //f(x+ct)
-    double f_cond_ini( double x );
-    double g_cond_ini(double x, double vel);
-    double w_cond_frontera( double t ,double vel);
-    double z_cond_frontera( double t ,double vel);
-    void output( ostream &of, double *u, double *x, double t, int N );
-
-
-    int main()
-    {
-      int N = 100; //numero de puntos en x
-      int out_cada = 1; //output cada no. de iteraciones
-      double L = 1.0; //longitud del dominio en x
-      double dx = L/N;
-      double vel = sqrt(10/(.001/1)); // velocidad de la onda
-      double dt = 0.0001;  
-      double alfa = dt*vel/dx;
-      int Niter = 500; // numero de iteraciones en el tiempo
-      double tiempo = 0.0; // lleva la cuenta del tiempo
-      ofstream outfile;
-      outfile.open( "solucion.dat", ios::out );
-
-      // variables para u
-      double *u_nueva = new double[N+1]; // u_{i,j+1}
-      double *u       = new double[N+1]; // u_{i,j}
-      double *u_vieja = new double[N+1]; // u_{i,j-1}
-      double *x       = new double[N+1]; // coordenada x
-
-
-      // coordenada x
-      for( int i=0; i<N+1; i++ )
-        x[i] = i*dx;
-
-      // condiciones iniciales u_{i0}
-      for( int i=0; i<N+1; i++ )
-        u_vieja[i] = f_cond_ini( x[i] );
-
-      // condiciones iniciales u_{i1}
-      for( int i=0; i<N+1; i++ )
-        u[i] = u_vieja[i] + g_cond_ini( x[i],vel ) * dt;
-
-
-      // condicion de frontera
-      u[0] = w_cond_frontera( 0.0 ,vel);
-      u[N] = z_cond_frontera( 0.0 ,vel);
-
-
-      tiempo += dt;
-
-      // ciclo principal
-      for( int j=0; j<=Niter; j++ ){
-        for( int i=1; i<N; i++ )
-          u_nueva[i] = 2.*(1.-alfa*alfa) * u[i] + alfa*alfa*(u[i-1] + u[i+1]) - u_vieja[i];
-
-        // condicion de frontera
-        u_nueva[0] = w_cond_frontera( tiempo + dt ,vel);
-        u_nueva[N] = z_cond_frontera( tiempo + dt ,vel);
-
-        // cambiar instantes de tiempo
-        for(int i=0; i<N+1; i++ ){
-          u_vieja[i] = u[i];
-          u[i]       = u_nueva[i];
-        }
-
-        tiempo += dt;
-
-        // output
-        if ( j % out_cada == 0 )
-          output( outfile, u, x, tiempo, N );
-
-      }
-
-
-
-      return 0;
-    }
-
-
-
-    void output( ostream &of, double *u, double *x, double t, int N )
-    {
-      for( int i=0; i<N+1; i++ )
-        of << t << "\t" << x[i] << "\t" << u[i] << endl;
-
-      of << endl << endl;
-    }
-
-
-
-    double f_cond_ini( double x )
-    {
-      double L = 1.0; // longitud de la cuerda
-      //return sin(4*2.*M_PI*x);
-      //return exp(-100*pow(x-L/2,2));
-
-
-      // por superposicion podemos hacer todo simultaneamente
-
-      return exp(-100*(x-0.75)*(x-0.75))+exp(-100*(x-0.25)*(x-0.25)); //constructiva 
-      // return exp(-100*(x-0.75)*(x-0.75))-exp(-100*(x-0.25)*(x-0.25)); //destructiva 
-      return 0.0;
-    }
-
-
-    double g_cond_ini( double x ,double vel)
-    {
-      double L = 1.0; // longitud de la cuerda
-      //return 10*exp(-100*pow(x-L/2,2));
-
-      return -200*vel*(x-.75)*exp(-100*((x-.75)*(x-.75)))+200*vel*(x-.25)*exp(-100*((x-.25)*(x-.25))); //constructiva 
-      // return -200*vel*(x-.75)*exp(-100*((x-.75)*(x-.75)))-200*vel*(x-.25)*exp(-100*((x-.25)*(x-.25))); //destructiva 
-      //return 0.0;
-    }
-
-
-    double w_cond_frontera( double t ,double vel)
-    {
-      //return  exp(-100*((0+vel*t)-0.75)*((0+vel*t)-0.75))+exp(-100*((0-vel*t)-0.25)*((0-vel*t)-0.25)); //constructiva 
-      //return  exp(-100*((0+vel*t)-0.75)*((0+vel*t)-0.75))-exp(-100*((0-vel*t)-0.25)*((0-vel*t)-0.25)); //destructiva
-      return 0; //extremos fijos 
-    }
-
-
-    double z_cond_frontera( double t ,double vel)
-    {
-
-      //return  exp(-100*((1+vel*t)-0.75)*((1+vel*t)-0.75))+exp(-100*((1-vel*t)-0.25)*((1-vel*t)-0.25)); //constructiva
-      //return  exp(-100*((1+vel*t)-0.75)*((1+vel*t)-0.75))-exp(-100*((1-vel*t)-0.25)*((1-vel*t)-0.25)); //destructiva 
-      return 0; //extremos fijos
-    }
-
-
-Código gp:
-
-
-
-    set yrange [-5:5]
-    set xrange [0:1]
-    dt=0.0001
-    set ylabel "y(m)"
-    set xlabel "x(m)"
-    #cuidado al momento de graficar ya que cambie los nombres de las bases de datos para que se diferenciaran
-    do for [it=0:500] {
-        set title sprintf( "t = %f (s)", it*dt )
-        plot 'solucion.dat' index it u 2:3 w l  title "Solucion Constructiva 500 Iter"
-
-        pause .001
-    }
-
-Solución:
-
-
-Resolvemos la ecuación por el método de diferencias finitas y el resultado lo guardamos en un archivo solucion.dat codigicado en utf8, y los datos de la posición del mismo son graficados por medio de un script gpp para verificar el resultado. Para reproducir el fenómeno necesitamos colocar ciertas condiciones como nulas, el fenómeno ocurre para los casos constructivo y destructivo pero adjuntamos solamente los resultados del primero.
-
-![image](https://user-images.githubusercontent.com/100542213/198174373-e6088ad3-d951-4296-93a1-23ebf408cc23.png)
-
-Inversión de Fase caso constructivo.
