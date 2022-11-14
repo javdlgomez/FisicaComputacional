@@ -1118,16 +1118,16 @@ Colocamos los parámetros dados del libro para intentar reproducir el comportami
 
 ![image](https://user-images.githubusercontent.com/100542213/201605043-7bff64dd-8725-43bc-8b1a-74a804cb9275.png)
 
-Paquete de onda sobre el pozo
+Paquete empezando a cruzar el pozo.
 
 ![image](https://user-images.githubusercontent.com/100542213/201605081-83bd236d-4a4f-408c-94ac-7041fb2b72e5.png)
 
-Paquete de onda terminando de cruzar el pozo
+Paquete de onda sobre el pozo.
 
 
 ![image](https://user-images.githubusercontent.com/100542213/201605190-b2fb966a-601e-45c1-b4f3-82e2f36ea6f7.png)
 
-Paquete de onda final
+Paquete de onda finalizando de cruzar el pozo.
 
 
 
