@@ -6,7 +6,7 @@ Solución de la ecuación de Schrödinger para un paquete Gausiano utilizando el
 
 ## Ejercicio 7.16: 
 
-Nos piden resolver la ecuación propuesta del libro para 2 configuraciones de redes distintas, N= 64 y N= 128.
+Nos piden resolver la ecuación propuesta del libro para 2 configuraciones de redes distintas en el caso estático con, N= 64 y N= 128.
 
 
 
@@ -233,10 +233,9 @@ Expansión del paquete de onda con N128
 
 
 
-## Ejercicio 7.16: 
+## Ejercicio 7.17: 
 
-Nos piden resolver la ecuación propuesta del libro para 2 configuraciones de redes distintas, N= 64 y N= 128.
-
+Nos piden resolver la ecuación propuesta del libro para una E0= 150eV con la red más fina y 100 saltos de tiempo.
 
 
 Código cpp: 
@@ -270,19 +269,19 @@ Código cpp:
 
     int main()
     {
-      int N = 64;
+      int N = 128;
       int Niter = 100;
       int outCada =1;
       double tiempo = 0.0;
       double hbar = sqrt(7.6199682);
-      double L = 10.0; //vamos a escalar todo al A circulado
+      double L = 10.0;
       double k0 = 2*M_PI/(N+1);
 
       double masa = 1.0;
       double dx    = 2*L/N;
-      double dt    = 5e-1; //conversiones
+      double dt    = 5e-1;
       double delta_x = 1; // Ancho del paquete
-      double k0momentum = 0;  // T=p^2/(2m), p=hbar*k
+      double k0momentum = sqrt(2*150)/hbar;  // T=p^2/(2m), p=hbar*k
       solucion.open( "solucion.dat", ios::out );
 
       // Cantidades complejas
@@ -426,35 +425,29 @@ Código cpp:
 
 
 
+
+
 Código gp:
 
 
 
+
     set yrange [-0.5:0.5]
-    set xlabel "x(1e-1nm)"
     set xrange [-10:10]
     dt = 5
+    set xlabel "x(1e-1nm)"
     do for [i=0:80] {
         set title sprintf( "t = %f (fs)", i*dt )
       #  plot 'solucion.dat' index i u 2:3 w lp, '' index i u 2:4 w lp 
         plot 'solucion.dat' index i u 2:($3**2+$4**2) w lp title "Amplitud de Onda"
 
-        pause .09
+        pause .01
     }
-
 
 Solución:
 
+El procedimiento de este problema es equivalente al anterior.
 
-Debemos realizar las conversiones a las unidades utilizadas y traducir los parámetros del libro a los de nuestro programa. Al calibrar los parámetros correctamente guardamos los resultados en un archivo .dat y graficamos la solución de la amplitud al cuadrado utilizando gnuplot.
+![image](https://user-images.githubusercontent.com/100542213/201593190-6dac6379-a0e3-4697-bc8c-47a13bca08a2.png)
 
-![image](https://user-images.githubusercontent.com/100542213/201592222-dfe290ae-e108-4230-bc7c-bf62e8e40861.png)
-
-Expansión del paquete de onda con N64
-
-
-![image](https://user-images.githubusercontent.com/100542213/201592275-95633d87-59f9-4391-ba8d-ae540846c6a5.png)
-
-
-Expansión del paquete de onda con N128
-
+Ahora el paquete de onda se mueve hacia la derecha
