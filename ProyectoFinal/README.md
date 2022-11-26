@@ -208,6 +208,8 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
      E += pow(PCM, 2) * 0.5 / mtot;
      P = PCM;
      L = RCM * PCM + Lloc;
+     //L tiene un problema y es que no está considerando las posiciones relativas
+     // 
     }
 
 
