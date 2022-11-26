@@ -178,7 +178,7 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
          }
        }
      }
-   }
+     }
 
  
  #### Cálculo de E, P y L totales:
@@ -208,7 +208,7 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
      E += pow(PCM, 2) * 0.5 / mtot;
      P = PCM;
      L = RCM * PCM + Lloc;
-   }
+    }
 
 
 #### Salida de Archivos:
@@ -228,7 +228,7 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
         ss << "\t" << yp[i];
       }
       ss << std::endl;
-    }
+      }
 
 Se imiten el resto de funciones de escritura por su similitud.
  
