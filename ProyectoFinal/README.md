@@ -329,23 +329,23 @@ Se omiten el resto de funciones de escritura por su similitud.
 #### Verificación de colisiones:
 
 
-void verificar_colisiones(long double &t) {
-  for (int i = 0; i < n_cuerpos; i++) {
-    if (cuerpos[i].masa != 0.0L) {
-      for (int j = 0; j < i; j++) {
-        if (cuerpos[j].masa != 0.0L) {
-          long double deltaX = cuerpos[i].pX - cuerpos[j].pX;
-          long double deltaY = cuerpos[i].pY - cuerpos[j].pY;
-          long double distancia = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
-          if (distancia < distancia_colision) {
-            long double nueva_masa = cuerpos[i].masa + cuerpos[j].masa;
-            cuerpos[i].vX = (cuerpos[i].masa * cuerpos[i].vX +
-                             cuerpos[j].masa * cuerpos[j].vX) /
-                            nueva_masa;
-            cuerpos[i].vY = (cuerpos[i].masa * cuerpos[i].vY +
-                             cuerpos[j].masa * cuerpos[j].vY) /
-                            nueva_masa;
-            cuerpos[i].masa = nueva_masa;
+   void verificar_colisiones(long double &t) {
+     for (int i = 0; i < n_cuerpos; i++) {
+       if (cuerpos[i].masa != 0.0L) {
+         for (int j = 0; j < i; j++) {
+           if (cuerpos[j].masa != 0.0L) {
+             long double deltaX = cuerpos[i].pX - cuerpos[j].pX;
+             long double deltaY = cuerpos[i].pY - cuerpos[j].pY;
+             long double distancia = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+             if (distancia < distancia_colision) {
+               long double nueva_masa = cuerpos[i].masa + cuerpos[j].masa;
+               cuerpos[i].vX = (cuerpos[i].masa * cuerpos[i].vX +
+                                cuerpos[j].masa * cuerpos[j].vX) /
+                               nueva_masa;
+               cuerpos[i].vY = (cuerpos[i].masa * cuerpos[i].vY +
+                                cuerpos[j].masa * cuerpos[j].vY) /
+                               nueva_masa;
+               cuerpos[i].masa = nueva_masa;
 
             // particula j sigue la misma trayectoria que particula i pero sin
             // masa
@@ -362,8 +362,8 @@ void verificar_colisiones(long double &t) {
         }
       }
     }
-  }
-}
+      }
+    }
 
 
 ## Discusión de Resultados 
