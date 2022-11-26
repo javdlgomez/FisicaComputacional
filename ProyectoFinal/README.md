@@ -102,6 +102,8 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
 #### Velocidades iniciales: 
 
 
+                                   
+                                   
    // Inicializar velocidades
    void init_velocidad() {
      // utilizamos la simplificación para una distribución uniforme de masas
