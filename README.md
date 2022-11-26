@@ -32,11 +32,11 @@ Además se agregó un término aleatorio que oscila entre $\pm \frac{\sqrt{G\pi 
 Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por ley de Newton y se llegó al siguiente resultado como fue dado en  :
 
 
-$$ |r_i-r_j| = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2} \\ 
+$$ |r_i-r_j| = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2} $$
 
-\dot {\dot {x_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(x_i-x_j) \\
+ $$\dot {\dot {x_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(x_i-x_j) $$
 
-\dot {\dot {y_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(y_i-y_j) $$
+$$ \dot {\dot {y_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(y_i-y_j) $$
 
 
 Finalmente se coloca el valor de todas las masas a $m_i = 10^18 kg$.
