@@ -23,8 +23,9 @@ Para obtener las posiciones iniciales se utilizó el generador de números pseud
 Para obtener las velocidades iniciales se utilizó la expresión obtenida en :
 
 
-$ r_i = \sqrt{x_i^2+y_i^2} 
-v_{i0} = \frac{\sqrt{G\pi N m_i r_i}}{L}(-\frac{y_{i0}{r_i},\frac{x_{i0}{r_i}) $
+$$ r_i = \sqrt{x_i^2+y_i^2}  $$
+
+$$ v_{i0} = \frac{\sqrt{G\pi N m_i r_i}}{L}(-\frac{y_{i0}{r_i},\frac{x_{i0}{r_i}) $$
 
 
 Además se agregó un término aleatorio que oscila entre $\pm \frac{\sqrt{G\pi N m_i r_i}}{L}$.
@@ -34,9 +35,9 @@ Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por le
 
 $$ |r_i-r_j| = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2} $$
 
- $$\dot {\dot {x_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(x_i-x_j) $$
+ $$\ddot {{x_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(x_i-x_j) $$
 
-$$ \dot {\dot {y_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(y_i-y_j) $$
+$$ \ddot { {y_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(y_i-y_j) $$
 
 
 Finalmente se coloca el valor de todas las masas a $m_i = 10^18 kg$.
