@@ -50,13 +50,15 @@ Para encontrar la energía total se utiliza la ecuación de la energía para un 
 
 $$ E = \frac{MR^2}{2}    +\sum \frac{m_iv_i^2}{2}  $$
 
+Donde M es la masa total y R es la posición del centro de masa del sistema.
+
 Para encontrar el momento total se utilizó la ecuación del momento para un sistema de partículas:
 
 $$ P = \sum m_iv_i $$
 
 Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas:
 
-$$ L = r \cross P + \sum r_i \cross m_i v_i $$
+$$ L = R \times P + \sum r_i \times m_i v_i $$
 
 
 
