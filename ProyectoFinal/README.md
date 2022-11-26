@@ -104,8 +104,8 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
 
                                    
                                    
-   // Inicializar velocidades
-   void init_velocidad() {
+     // Inicializar velocidades
+     void init_velocidad() {
      // utilizamos la simplificación para una distribución uniforme de masas
      // puntuales a estas se les agrega luego un valor entre [-1/2,1/2] la magnitud
      // del valor obtenido por la distribución de masas.
@@ -120,7 +120,7 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
            vel_compartida * (-1*yp[i] * r_inverso + random_menos1_a_1(generator));
        vy[i] = vel_compartida * (xp[i] * r_inverso + random_menos1_a_1(generator));
      }
-   }                                   
+     }                                   
 
  
 ## Discusión de Resultados 
