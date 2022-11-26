@@ -43,7 +43,7 @@ $$ \ddot { {y_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(y_i-y_j) $$
 Finalmente se coloca el valor de todas las masas a $m_i = 10^18 kg$.
 Es importante agregar que nuestra simulación se generalizó para aceptar valores distintos de masas puntuales.
 
-## Cálculo de las variables físicas:
+### Cálculo de las variables físicas:
 
 
 Para encontrar la energía total se utiliza la ecuación de la energía para un sistema de partículas:
@@ -61,10 +61,23 @@ Para encontrar el momento agnular total se utilizó la ecuación del momento ang
 $$ L = R \times P + \sum r_i \times m_i v_i $$
 
 
+Para calcular la evolución de las variables de movimiento utilizamos la implementación del algoritmo de RK4 y repetimos el proceso.
 
+
+###Validez del modelo:
+
+Para verificar la validez de nuestra implementación se realizó una simulación del sistema de 3 cuerpos Tierra Luna Sol utilizando como condiciones iniciales los datos de la geometría y velocidad conocidas de los mismos. Además se miden las variables de Energía, Momento y Momentu angular con respecto del tiempo y ya que estas no presentan cambios fuera de lo esperado por la teoría entonces podemos tener cierto grado de seguridad de la fidelidad del mismo.
 
 
 ## Resultados
+
+
+
+
+
+
+
+
 ## Discusión de Resultados 
 ## Conclusiones 
 ## Referencias
