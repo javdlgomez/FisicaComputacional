@@ -80,12 +80,16 @@ Esta versión obtiene resultados más precisos, pero conlleva mayor tiempo de ej
 La segunda implementación utiliza un enfoque mixto empleando propiedades del OOP e intenta proteger un poco más a posibles errores durante la ejecución del programa. Aún así versión diverge con mayor facilidad a la solución esperada bajo las mismas condiciones, pero tiene un menor tiempo de ejecución.
 
 ### Parámetros de la simulación:
+El largo del cuadrado es de 2UA.
+
 Las masas se configuraron a $m = 10^{18}kg$.
 
-La el lado del cuadrado es de 2UA.
+Las velocidades iniciales están acotadas entre $[-2v_i,2v_i]$ y distribuidas de aleatoria.
 
 El período de duración de la simulación es de 5000 años.
+
 El avance en el tiempo de la simulación es de un día.
+
 Se miden las variables del sistema cada 18000 días.
 
 
