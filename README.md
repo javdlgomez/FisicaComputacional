@@ -33,7 +33,9 @@ Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por le
 
 
 $$ |r_i-r_j| = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2} \\ 
+
 \dot {\dot {x_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(x_i-x_j) \\
+
 \dot {\dot {y_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(y_i-y_j) $$
 
 
