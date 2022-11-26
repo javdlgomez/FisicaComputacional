@@ -84,6 +84,7 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
 
 #### Posiciones iniciales:
 
+
    std::random_device rd;
    std::default_random_engine generator(rd()); // rd() random seed
    std::uniform_real_distribution<long double> random_menos1_a_1(-1.0, 1.0);
@@ -97,8 +98,10 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
      }
     }
 
+                                   
 #### Velocidades iniciales: 
 
+                                   
    // Inicializar velocidades
    void init_velocidad() {
      // utilizamos la simplificación para una distribución uniforme de masas
@@ -117,6 +120,7 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
      }
     }
 
+ 
 ## Discusión de Resultados 
 ## Conclusiones 
 ## Referencias
