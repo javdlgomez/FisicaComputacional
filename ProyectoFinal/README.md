@@ -13,11 +13,11 @@ Para modelar este sistema se realizó una simulación en c++, utilizando el mét
 
 ## Métodos 
 ### Generalidades:
-Para resolver el problema se realizaron dos simulaciones computacionales en c++ bajo el estandar stdc++20 gcc v 12.2.0. Estas simulaciones realizan la aproximación de la solución del sistema de movimiento empleando el método de RK4, este funciona tomando las condiciones iniciales dadas por nuestra solución particular y obtiene las variables físicas en el siguiente intervalo de tiempo. Este algoritmo se repite tomando como los valores obtenidos las nuevas condiciones iniciales y se realiza hasta que se llegue al tiempo de duración deseado.
+Para resolver el problema se realizaron dos scripts distintos de simulaciones computacionales en c++ bajo el estandar stdc++20 y fue compilado utilizando flags de optimización como Ofast, se realizaron pruebas para comprobar que no ocurrieran problemas de precisión numérica. Estas simulaciones realizan la aproximación de la solución del sistema de movimiento empleando el método de RK4, este funciona tomando las condiciones iniciales dadas por nuestra solución particular y obtiene las variables físicas en el siguiente intervalo de tiempo. Este algoritmo se repite tomando como los valores obtenidos las nuevas condiciones iniciales y se realiza hasta que se llegue al tiempo de duración deseado.
 
 
 ### Condiciones iniciales:
-Para obtener las posiciones iniciales se utilizó el generador de números pseudo aleatorios por defecto de la libreria random de c++ y se distribuyeron las masas en un cuadrado centrado en el origen de lado 1UA.
+Para obtener las posiciones iniciales se utilizó el generador de números pseudo aleatorios por defecto de la libreria random de c++ y se distribuyeron las masas en un cuadrado centrado en el origen de lado 2UA.
 
 Para obtener las velocidades iniciales se utilizó la expresión obtenida en :
 
@@ -62,18 +62,22 @@ $$ L = R \times P + \sum r_i \times m_i v_i $$
 
 Para calcular la evolución de las variables de movimiento utilizamos la implementación del algoritmo de RK4 y repetimos el proceso.
 
+### Cálculo de las colisiones:
+
+Se utiliza un threshold de colisión bastante pequeño comparado con el tamaño de la geometría simulación pero basado físicamente en un radio de planeta ligeramente mayor al radio de la tierra $$ th = 1e^7$$. Por este motivo las colisiones son poco comunes y puede existir un traslape en las animaciones donde parece que ocurre una colisión porque el tamaño animado es más grande que el threshold, o sea su tamaño físico dado.
+Al ocurrir una colisión se resuelve el sistema de ecuaciones para una colisión elástica perfecta con respecto de las variables físicas finales y se unen los 2 cuerpos sumando sus masas asignándole el valor a una de ellas y descartando la masa de la otra.
 
 ### Validez de los modelos:
 
-Para verificar la validez de nuestra implementación se realizó una simulación del sistema de 3 cuerpos Tierra Luna Sol utilizando como condiciones iniciales los datos de la geometría y velocidad conocidas de los mismos. Además se miden las variables de Energía, Momento y Momentu angular con respecto del tiempo y al obtener que el comportamiento de las mismas es de acuerdo con la teoría entonces podemos tener cierto grado de seguridad de la fidelidad del mismo.
+Para verificar la validez de nuestra implementación se realizó una simulación del sistema de 3 cuerpos Tierra Luna Sol utilizando como condiciones iniciales los datos de la geometría y velocidad conocidas de los mismos. Además se miden las variables de Energía, Momento y Momentum angular con respecto del tiempo y al obtener que el comportamiento constante de las mismas es de acuerdo con la teoría entonces podemos tener cierto grado de seguridad de la fidelidad del mismo.
 
 
 
 ### Diferencias entre las simulaciones:
-La primera implementación se utiliza como base una optimización de el script proporcionado por, este es ligeramente peligroso ya que realiza cambios directamente en memoria sin protección del complilador y está construido con un paradigma de programación funcional.
+La primera implementación se utiliza como base una optimización de el script proporcionado por, este realiza el proceso del método de RK4 directamente en memoria sin protección del complilador y está construido con un paradigma de programación funcional.
 Esta versión obtiene resultados más precisos, pero conlleva mayor tiempo de ejecución.
 
-La segunda implementación utiliza un enfoque mixto empleando propiedades del OOP e intenta proteger un poco más a posibles errores durante la ejecución del programa. Esta versión diverge con mayor facilidad a la solución esperada bajo las mismas condiciones, pero tiene un menor tiempo de ejecución.
+La segunda implementación utiliza un enfoque mixto empleando propiedades del OOP e intenta proteger un poco más a posibles errores durante la ejecución del programa. Aún así versión diverge con mayor facilidad a la solución esperada bajo las mismas condiciones, pero tiene un menor tiempo de ejecución.
 
 
 
@@ -107,14 +111,14 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
      // Inicializar velocidades
      void init_velocidad() {
      // utilizamos la simplificación para una distribución uniforme de masas
-     // puntuales a estas se les agrega luego un valor entre [-1/2,1/2] la magnitud
+     // puntuales a estas se les agrega luego un valor entre [-1,1] la magnitud
      // del valor obtenido por la distribución de masas.
 
      for (int i = 0; i < n_cuerpos; i++) {
        long double r = sqrt(pow(xp[i], 2) + pow(yp[i], 2));
        long double r_inverso = pow(r, -1);
        long double vel_compartida =
-           sqrt(G * M_PI * n_cuerpos * masa[i] * r) * 3.0e-11;
+           sqrt(G * M_PI * n_cuerpos * masa[i] * r) / (3.0e11);
 
        vx[i] =
            vel_compartida * (-1*yp[i] * r_inverso + random_menos1_a_1(generator));
@@ -232,9 +236,136 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
       ss << std::endl;
       }
 
-Se imiten el resto de funciones de escritura por su similitud.
+Se omiten el resto de funciones de escritura por su similitud.
  
  
+ ### Funciones Simulación Script Nuevo:
+ 
+ #### Estructura de Cuerpos para la Simulación:
+ 
+
+      struct cuerpo cuerpos[n_cuerpos];
+
+     // Variables del sistema
+     long double E, P, L; // energia momento lineal y momento angular del sistema
+
+     // Inicializar masas
+     void init_masa() {
+       // nuestra simulación toma todas las masas con el mismo valor
+       for (int i = 0; i < n_cuerpos; i++) {
+         cuerpos[i].masa = 10.0e18L;
+       }
+     }
+
+
+
+ 
+ #### Posiciones iniciales:
+ 
+
+     std::random_device rd;
+    std::default_random_engine generator(rd()); // rd() random seed
+    std::uniform_real_distribution<long double> random_menos1_a_1(-1.0, 1.0);
+
+
+     // Inicializar posiciones
+    void init_posicion() {
+      // valores aleatorios entre [-1,1]UA en un cuadrado xy.
+
+      for (int i = 0; i < n_cuerpos; i++) {
+        cuerpos[i].pX = random_menos1_a_1(generator) * 1.5e11;
+        cuerpos[i].pY = random_menos1_a_1(generator) * 1.5e11;
+      }
+    }
+    
+    
+   
+ 
+#### Velocidades iniciales: 
+ 
+
+     // Inicializar velocidades
+    void init_velocidad() {
+      // utilizamos la simplificación para una distribución uniforme de masas
+      // puntuales a estas se les agrega luego un valor entre [-1/2,1/2] la magnitud
+      // del valor obtenido por la distribución de masas.
+
+      for (int i = 0; i < n_cuerpos; i++) {
+        long double r = sqrt(pow(cuerpos[i].pX, 2) + pow(cuerpos[i].pY, 2));
+        long double r_inverso = pow(r, -1);
+        long double vel_compartida =
+            sqrt(G * M_PI * n_cuerpos * cuerpos[i].masa * r) /(3e11);
+
+        cuerpos[i].vX = -vel_compartida *
+                        (cuerpos[i].pY * r_inverso + random_menos1_a_1(generator));
+        cuerpos[i].vY = vel_compartida *
+                        (cuerpos[i].pX * r_inverso + random_menos1_a_1(generator));
+      }
+    }
+ 
+ 
+ #### Aceleraciones iniciales: 
+ 
+     void calc_aceleracion() {
+      // consideramos solamente la fuerza de la gravedad.
+
+      for (int i = 0; i < n_cuerpos; i++) {
+        cuerpos[i].aX = 0;
+        cuerpos[i].aY = 0;
+        for (int j = 0; j < n_cuerpos; j++) {
+          if (i == j)
+            continue;
+          long double delta_pX = cuerpos[i].pX - cuerpos[j].pX;
+          long double delta_pY = cuerpos[i].pY - cuerpos[j].pY;
+          long double G_masa_abs_ri_menos_rj_cubo =
+              cuerpos[j].masa * pow(pow(delta_pX, 2) + pow(delta_pY, 2), -1.5) * G;
+          cuerpos[i].aX -= delta_pX * G_masa_abs_ri_menos_rj_cubo;
+          cuerpos[i].aY -= delta_pY * G_masa_abs_ri_menos_rj_cubo;
+        }
+      }
+    }
+
+
+#### Verificación de colisiones:
+
+
+void verificar_colisiones(long double &t) {
+  for (int i = 0; i < n_cuerpos; i++) {
+    if (cuerpos[i].masa != 0.0L) {
+      for (int j = 0; j < i; j++) {
+        if (cuerpos[j].masa != 0.0L) {
+          long double deltaX = cuerpos[i].pX - cuerpos[j].pX;
+          long double deltaY = cuerpos[i].pY - cuerpos[j].pY;
+          long double distancia = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+          if (distancia < distancia_colision) {
+            long double nueva_masa = cuerpos[i].masa + cuerpos[j].masa;
+            cuerpos[i].vX = (cuerpos[i].masa * cuerpos[i].vX +
+                             cuerpos[j].masa * cuerpos[j].vX) /
+                            nueva_masa;
+            cuerpos[i].vY = (cuerpos[i].masa * cuerpos[i].vY +
+                             cuerpos[j].masa * cuerpos[j].vY) /
+                            nueva_masa;
+            cuerpos[i].masa = nueva_masa;
+
+            // particula j sigue la misma trayectoria que particula i pero sin
+            // masa
+            cuerpos[j].pX = (cuerpos[i].pX + cuerpos[j].pX) / 2;
+            cuerpos[j].pY = (cuerpos[i].pY + cuerpos[j].pY) / 2;
+            cuerpos[j].vX = cuerpos[i].vX;
+            cuerpos[j].vY = cuerpos[i].vY;
+            cuerpos[j].aX = cuerpos[i].aX;
+            cuerpos[j].aY = cuerpos[i].aY;
+            cuerpos[j].masa = 0.0L;
+            std::cout << "Colision " << i << " " << j << " en t = " << t
+                      << std::endl;
+          }
+        }
+      }
+    }
+  }
+}
+
+
 ## Discusión de Resultados 
 ## Conclusiones 
 ## Referencias
