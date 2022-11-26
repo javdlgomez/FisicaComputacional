@@ -123,6 +123,116 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
      }                                   
 
  
+#### Cálculo de las aceleraciones: 
+
+    void calc_aceleracion() {
+      // consideramos solamente la fuerza de la gravedad.
+
+      for (int i = 0; i < n_cuerpos; i++) {
+        ax[i] = 0;
+        ay[i] = 0;
+        for (int j = 0; j < n_cuerpos; j++) {
+          if (i == j)
+            continue;
+          long double delta_pX = xp[i] - xp[j];
+          long double delta_pY = yp[i] - yp[j];
+          long double G_masa_abs_ri_menos_rj_cubo =
+              masa[j] * pow(pow(delta_pX, 2) + pow(delta_pY, 2), -1.5) * G;
+          ax[i] -= delta_pX * G_masa_abs_ri_menos_rj_cubo;
+          ay[i] -= delta_pY * G_masa_abs_ri_menos_rj_cubo;
+        }
+      }
+    }
+ 
+ #### Verificación de Colisiones, se agregó animación: 
+ 
+ 
+    void verificar_colisiones(long double t) {
+     long double dist_lim = 1e8;
+
+     for (int i = 0; i < n_cuerpos; i++) {
+       if (masa[i] != 0.0) {
+         for (int j = 0; j < i; j++) {
+           if (masa[j] != 0.0) {
+             long double dx = xp[i] - xp[j];
+             long double dy = yp[i] - yp[j];
+             long double distancia = sqrt(pow(dx, 2) + pow(dy, 2));
+             if (distancia < dist_lim) {
+               long double nueva_masa = masa[i] + masa[j];
+               vx[i] = (masa[i] * vx[i] + masa[j] * vx[j]) / nueva_masa;
+               vy[i] = (masa[i] * vy[i] + masa[j] * vy[j]) / nueva_masa;
+               masa[i] = nueva_masa;
+
+               // particula j sigue la misma trayectoria que particula i pero sin
+               // masa
+               xp[j] = (xp[i] + xp[j]) / 2;
+               yp[j] = (yp[i] + yp[j]) / 2;
+               vx[j] = vx[i];
+               vy[j] = vy[i];
+               ax[j] = ax[i];
+               ay[j] = ay[i];
+               masa[j] = 0.0;
+               cout << "Colision " << i << " " << j << " en t = " << t << endl;
+             }
+           }
+         }
+       }
+     }
+   }
+
+ 
+ #### Cálculo de E, P y L totales:
+ 
+    void Energia_Pmomento_Lmomemnto() {
+
+     // obtenemos E, P, L de todo el sistema no analizamos las partículas por
+     // separado.
+
+     E = 0.0;
+     P = 0.0;
+     L = 0.0;
+     long double PCM = 0.0;
+     long double mtot = 0.0;
+     long double RCM = 0.0;
+     long double Lloc = 0.0;
+     for (int j = 0; j < n_cuerpos; j++) {
+       long double vx2_mas_vy2 = pow(vx[j], 2) + pow(vy[j], 2);
+       long double sqrt_vx2_mas_vy2 = sqrt(vx2_mas_vy2);
+       E += masa[j] * vx2_mas_vy2 * 0.5;
+       PCM += masa[j] * sqrt_vx2_mas_vy2;
+       mtot += masa[j];
+       RCM += masa[j] * sqrt(pow(xp[j], 2) + pow(yp[j], 2));
+       Lloc = RCM * sqrt_vx2_mas_vy2;
+     }
+     RCM = RCM / mtot;
+     E += pow(PCM, 2) * 0.5 / mtot;
+     P = PCM;
+     L = RCM * PCM + Lloc;
+   }
+
+
+#### Salida de Archivos:
+
+     void escribirArchivo(std::ofstream &of, std::stringstream &ss) {
+      of << ss.str();
+    }
+
+    void salidaSolucion(const long double &t, std::stringstream &ss) {
+      // escribimos en un archivo en la columna 0 el valor de t
+      // en las siguientes n_cuerpos px y en las consiguientes py
+      ss << t;
+      for (int i = 0; i < n_cuerpos; ++i) {
+        ss << "\t" << xp[i];
+      }
+      for (int i = 0; i < n_cuerpos; ++i) {
+        ss << "\t" << yp[i];
+      }
+      ss << std::endl;
+    }
+
+Se imiten el resto de funciones de escritura por su similitud.
+ 
+ 
 ## Discusión de Resultados 
 ## Conclusiones 
 ## Referencias
