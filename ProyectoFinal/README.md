@@ -85,18 +85,18 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
 #### Posiciones iniciales:
 
 
-   std::random_device rd;
-   std::default_random_engine generator(rd()); // rd() random seed
-   std::uniform_real_distribution<long double> random_menos1_a_1(-1.0, 1.0);
-   // Inicializar posiciones
-   void init_posicion() {
+     std::random_device rd;
+     std::default_random_engine generator(rd()); // rd() random seed
+     std::uniform_real_distribution<long double> random_menos1_a_1(-1.0, 1.0);
+     // Inicializar posiciones
+     void init_posicion() {
      // valores aleatorios entre [-1,1]UA en un cuadrado xy.
 
      for (int i = 0; i < n_cuerpos; i++) {
        xp[i] = random_menos1_a_1(generator) * 1.5e11;
        yp[i] = random_menos1_a_1(generator) * 1.5e11;
-     }
-    }
+      }
+      }
 
                                    
 #### Velocidades iniciales: 
