@@ -69,7 +69,7 @@ Al ocurrir una colisión se resuelve el sistema de ecuaciones para una colisión
 
 ### Validez de los modelos:
 
-Para verificar la validez de nuestra implementación se realizó una simulación del sistema de 3 cuerpos Tierra Luna Sol utilizando como condiciones iniciales los datos de la geometría y velocidad conocidas de los mismos. Además se miden las variables de Energía, Momento y Momentum angular con respecto del tiempo y al obtener que el comportamiento constante de las mismas es de acuerdo con la teoría entonces podemos tener cierto grado de seguridad de la fidelidad del mismo.
+Para verificar la validez de nuestra implementación se realizó una simulación del sistema de 3 cuerpos Tierra Luna Sol utilizando como condiciones iniciales los datos de la geometría y velocidad conocidas de los mismos. Además se miden las variables de Energía, Momento y Momentum angular con respecto del tiempo y al obtener que el comportamiento constante de las mismas es de acuerdo con la teoría entonces podemos tener cierto grado de seguridad de la fidelidad del mismo. Estas simulaciones corrieron en un periodo de 42 años con un avance en el tiempo de un dia.
 
 
 
@@ -79,6 +79,12 @@ Esta versión obtiene resultados más precisos, pero conlleva mayor tiempo de ej
 
 La segunda implementación utiliza un enfoque mixto empleando propiedades del OOP e intenta proteger un poco más a posibles errores durante la ejecución del programa. Aún así versión diverge con mayor facilidad a la solución esperada bajo las mismas condiciones, pero tiene un menor tiempo de ejecución.
 
+### Parámetros de la simulación:
+Las masas se configuraron a $m = 10^18kg$. 
+La el lado del cuadrado es de 2UA.
+El período de duración de la simulación es de 5000 años.
+El avance en el tiempo de la simulación es de un día.
+Se miden las variables del sistema cada 18000 días.
 
 
 ## Resultados
@@ -318,7 +324,7 @@ Se omiten el resto de funciones de escritura por su similitud.
         long double r = sqrt(pow(cuerpos[i].pX, 2) + pow(cuerpos[i].pY, 2));
         long double r_inverso = pow(r, -1);
         long double vel_compartida =
-            sqrt(G * M_PI * n_cuerpos * cuerpos[i].masa * r) /(3e11);
+            sqrt(G * M_PI * n_cuerpos * cuerpos[i].masa * r) *(3e-11);
 
         cuerpos[i].vX = -vel_compartida *
                         (cuerpos[i].pY * r_inverso + random_menos1_a_1(generator));
@@ -390,10 +396,10 @@ Se omiten el resto de funciones de escritura por su similitud.
       }
     }
 
-La definición del resto de variables físicas y la escritura de archivos se omiten por si similitud con las funciones presentadas anteriormente.
+La definición del resto de variables físicas y la escritura de archivos se omiten por su similitud con las funciones presentadas anteriormente.
 
 
-Se reescribió el método para calcular las derivadas, aceleración y la ejecución del RK4, se incluye in snippet mostrando las nuevas definiciones de estos métodos el cálculo de K0.
+Además se reescribió el método para calcular las derivadas, aceleración y la ejecución del RK4, se incluye in snippet mostrando las nuevas definiciones de estos métodos el cálculo de K0.
 
 #### Diferencia entre los Scripts de Simulación:
 
@@ -435,6 +441,12 @@ Se reescribió el método para calcular las derivadas, aceleración y la ejecuci
         z[i].vY = cuerpos[i].vY + k0[i].vY * h_step;
       }
 
+El código fuente puede ser visto en .
+
 ## Discusión de Resultados 
+
+
+
+
 ## Conclusiones 
 ## Referencias
