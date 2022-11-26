@@ -85,9 +85,7 @@ Las masas se configuraron a $m = 10^{18}kg$.
 La el lado del cuadrado es de 2UA.
 
 El período de duración de la simulación es de 5000 años.
-
 El avance en el tiempo de la simulación es de un día.
-
 Se miden las variables del sistema cada 18000 días.
 
 
