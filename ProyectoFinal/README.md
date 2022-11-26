@@ -24,7 +24,7 @@ Para obtener las velocidades iniciales se utilizó la expresión obtenida en :
 
 $$ r_i = \sqrt{x_i^2+y_i^2}  $$
 
-$$   v_{i0} = \frac{\sqrt{G \pi N m_i  r_i}}{L}(-\frac{y_{i0}}{r_i},\frac{x_{i0}{r_i}}) $$
+$$   v_{i0} = \frac{\sqrt{G \pi N m_i  r_i}}{L}(-\frac{y_{i0}}{r_i},\frac{x_{i0}}{r_i}) $$
 
 
 Además se agregó un término aleatorio que oscila entre $\pm \frac{\sqrt{G\pi N m_i r_i}}{L}$.
@@ -84,7 +84,7 @@ El largo del cuadrado es de 2UA.
 
 Las masas se configuraron a $m = 10^{18}kg$.
 
-Las velocidades iniciales están acotadas entre $[-2v_i,2v_i]$ y distribuidas de aleatoria.
+Las velocidades iniciales están acotadas entre $[-2 \frac{\sqrt{G\pi N m_i r_i}}{L},2 \frac{\sqrt{G\pi N m_i r_i}}{L}]$ y distribuidas de aleatoria.
 
 El período de duración de la simulación es de 5000 años.
 
