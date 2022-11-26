@@ -16,7 +16,9 @@ Para modelar este sistema se realizó una simulación en c++, utilizando el mét
 
 ## Métodos 
 ### Generalidades:
-Para resolver el problema se realizó una simulación computacional en c++ bajo el estandar stdc++20. Esta simulación realiza la aproximación de la solución del sistema de movimiento empleando el método de RK4, este funciona tomando las condiciones iniciales dadas por nuestra solución particular y obtiene las variables físicas en el siguiente intervalo de tiempo. Este algoritmo se repite tomando como los valores obtenidos las nuevas condiciones iniciales y se realiza hasta que se llegue al tiempo de duración deseado.
+Para resolver el problema se realizaron dos simulaciones computacionales en c++ bajo el estandar stdc++20. Estas simulaciones realizan la aproximación de la solución del sistema de movimiento empleando el método de RK4, este funciona tomando las condiciones iniciales dadas por nuestra solución particular y obtiene las variables físicas en el siguiente intervalo de tiempo. Este algoritmo se repite tomando como los valores obtenidos las nuevas condiciones iniciales y se realiza hasta que se llegue al tiempo de duración deseado.
+
+
 ### Condiciones iniciales:
 Para obtener las posiciones iniciales se utilizó el generador de números pseudo aleatorios por defecto de la libreria random de c++ y se distribuyeron las masas en un cuadrado centrado en el origen de lado 1UA.
 
@@ -64,9 +66,18 @@ $$ L = R \times P + \sum r_i \times m_i v_i $$
 Para calcular la evolución de las variables de movimiento utilizamos la implementación del algoritmo de RK4 y repetimos el proceso.
 
 
-###Validez del modelo:
+### Validez de los modelos:
 
-Para verificar la validez de nuestra implementación se realizó una simulación del sistema de 3 cuerpos Tierra Luna Sol utilizando como condiciones iniciales los datos de la geometría y velocidad conocidas de los mismos. Además se miden las variables de Energía, Momento y Momentu angular con respecto del tiempo y ya que estas no presentan cambios fuera de lo esperado por la teoría entonces podemos tener cierto grado de seguridad de la fidelidad del mismo.
+Para verificar la validez de nuestra implementación se realizó una simulación del sistema de 3 cuerpos Tierra Luna Sol utilizando como condiciones iniciales los datos de la geometría y velocidad conocidas de los mismos. Además se miden las variables de Energía, Momento y Momentu angular con respecto del tiempo y al obtener que el comportamiento de las mismas es de acuerdo con la teoría entonces podemos tener cierto grado de seguridad de la fidelidad del mismo.
+
+
+
+### Diferencias entre las simulaciones:
+La primera implementación se utiliza como base una optimización de el script proporcionado por, este es ligeramente peligroso ya que realiza cambios directamente en memoria sin protección del complilador y está construido con un paradigma de programación funcional.
+Esta versión obtiene resultados más precisos, pero conlleva mayor tiempo de ejecución.
+
+La segunda implementación utiliza un enfoque mixto empleando propiedades del OOP e intenta proteger un poco más a posibles errores durante la ejecución del programa. Esta versión diverge con mayor facilidad a la solución esperada bajo las mismas condiciones, pero tiene un menor tiempo de ejecución.
+
 
 
 ## Resultados
@@ -81,77 +92,3 @@ Para verificar la validez de nuestra implementación se realizó una simulación
 ## Discusión de Resultados 
 ## Conclusiones 
 ## Referencias
-
-
-## Ejercicio 5.1: 
-
-Nos piden resolver por medio del método de euler la siguiente ecuación diferencial:
-
-$$ y'(x) = x^2+1 $$
-
-Con Condiciones iniciales y de dominio
-$$y(0) = 0, 0x<1 $$
-
-Con distintos valores de h= 0.05, 0.10, 0.15 y 0.20 comparados con la solución analítica.
-
-Código: 
-    //===================================
-    //
-    // Metodo de Euler
-    // compilacion: g++ -o programa ejercicio5-1.cpp
-    //
-    //===================================
-    
-    #include <iostream>
-    
-    using namespace std;
-    
-    //utilizamos la implementación más sencilla de este método vista en clase
-    double euler( double y, double t, double h );
-    double derivada( double y, double t );
-    
-    int main()
-    {
-      // Datos iniciales
-      const double y0 = 0;
-      const double t0 = 0;
-      const double h = 0.1;
-    
-      //Para calcular N despejamos la ecuación
-      // 1 = (N-2)h
-      //el -2 aparece porque empezamos a contar en 2 y nos dicen que el dominio es menor a 1
-      const int N = 9; // 
-      
-      double y = y0;
-      double t = t0;
-      double y_nueva = 0.0;
-    
-      cout << t << "\t" << y << endl;
-      
-      // ciclo de iteraciones
-      for( int i=0; i<=N; i++ ){
-    
-        y_nueva = euler( y, t, h );
-    
-        y = y_nueva;
-        t = t + h;
-    
-        cout << t << "\t" << y << endl;
-      }
-      
-      return 0;
-    }
-    
-    
-    double euler( double y, double t, double h )
-    {
-      return y + h*derivada( y, t );
-    }
-    
-    
-    double derivada( double y, double t )
-    {
-      //aquí debemos tener cuidado para cambiar al problema
-      //específico que deseamos solucionar
-      return y*y+1;
-    }
