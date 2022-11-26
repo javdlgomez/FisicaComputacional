@@ -390,6 +390,50 @@ Se omiten el resto de funciones de escritura por su similitud.
       }
     }
 
+La definición del resto de variables físicas y la escritura de archivos se omiten por si similitud con las funciones presentadas anteriormente.
+
+
+Se reescribió el método para calcular las derivadas, aceleración y la ejecución del RK4, se incluye in snippet mostrando las nuevas definiciones de estos métodos el cálculo de K0.
+
+#### Diferencia entre los Scripts de Simulación:
+
+
+    // Derivadas del sistemas de ecuaciones
+    void nCuerposGrav(struct cuerpo (&y)[n_cuerpos],
+                      struct cuerpo (&dydt)[n_cuerpos]) {
+      for (int i = 0; i < n_cuerpos; i++) {
+        cuerpos[i] = y[i];
+      }
+      // Calcular aceleraciones
+      calc_aceleracion();
+
+      for (int i = 0; i < n_cuerpos; i++) {
+        dydt[i].pX = cuerpos[i].vX;
+        dydt[i].pY = cuerpos[i].vY;
+        dydt[i].vX = cuerpos[i].aX;
+        dydt[i].vY = cuerpos[i].aY;
+      }
+    }
+
+    void RK4() {
+      struct cuerpo k0[n_cuerpos];
+      struct cuerpo k1[n_cuerpos];
+      struct cuerpo k2[n_cuerpos];
+      struct cuerpo k3[n_cuerpos];
+
+      struct cuerpo z[n_cuerpos];
+      for (int i = 0; i < n_cuerpos; i++) {
+        z[i] = cuerpos[i];
+      }
+
+      nCuerposGrav(cuerpos, k0);
+
+      for (int i = 0; i < n_cuerpos; i++) {
+        z[i].pX = cuerpos[i].pX + k0[i].pX * h_step;
+        z[i].pY = cuerpos[i].pY + k0[i].pY * h_step;
+        z[i].vX = cuerpos[i].vX + k0[i].vX * h_step;
+        z[i].vY = cuerpos[i].vY + k0[i].vY * h_step;
+      }
 
 ## Discusión de Resultados 
 ## Conclusiones 
