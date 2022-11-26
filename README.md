@@ -46,12 +46,17 @@ Es importante agregar que nuestra simulación se generalizó para aceptar valore
 ## Cálculo de las variables físicas:
 
 
+Para encontrar la energía total se utiliza la ecuación de la energía para un sistema de partículas:
 
-Para encontrar la energía total se hizo
+$$ E = \frac{MR^2}{2}    +\sum \frac{m_iv_i^2}{2}  $$
 
-Para encontrar el momento total se hizo
+Para encontrar el momento total se utilizó la ecuación del momento para un sistema de partículas:
 
-Para encontrar el momento agnular total se hizo
+$$ P = \sum m_iv_i $$
+
+Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas:
+
+$$ L = r \cross P + \sum r_i \cross m_i v_i $$
 
 
 
