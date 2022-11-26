@@ -87,7 +87,6 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
    std::random_device rd;
    std::default_random_engine generator(rd()); // rd() random seed
    std::uniform_real_distribution<long double> random_menos1_a_1(-1.0, 1.0);
-
    // Inicializar posiciones
    void init_posicion() {
      // valores aleatorios entre [-1,1]UA en un cuadrado xy.
@@ -96,7 +95,7 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
        xp[i] = random_menos1_a_1(generator) * 1.5e11;
        yp[i] = random_menos1_a_1(generator) * 1.5e11;
      }
-   }
+    }
 
 #### Velocidades iniciales: 
 
@@ -116,7 +115,7 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
            vel_compartida * (-1*yp[i] * r_inverso + random_menos1_a_1(generator));
        vy[i] = vel_compartida * (xp[i] * r_inverso + random_menos1_a_1(generator));
      }
-   }
+    }
 
 ## Discusión de Resultados 
 ## Conclusiones 
