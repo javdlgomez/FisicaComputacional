@@ -80,11 +80,43 @@ La segunda implementación utiliza un enfoque mixto empleando propiedades del OO
 ## Resultados
 
 
+### Funciones Simulación Script Original:
 
+#### Posiciones iniciales:
 
+  std::random_device rd;
+  std::default_random_engine generator(rd()); // rd() random seed
+  std::uniform_real_distribution<long double> random_menos1_a_1(-1.0, 1.0);
 
+  // Inicializar posiciones
+  void init_posicion() {
+    // valores aleatorios entre [-1,1]UA en un cuadrado xy.
 
+    for (int i = 0; i < n_cuerpos; i++) {
+      xp[i] = random_menos1_a_1(generator) * 1.5e11;
+      yp[i] = random_menos1_a_1(generator) * 1.5e11;
+    }
+  }
 
+#### Velocidades iniciales: 
+
+  // Inicializar velocidades
+  void init_velocidad() {
+    // utilizamos la simplificación para una distribución uniforme de masas
+    // puntuales a estas se les agrega luego un valor entre [-1/2,1/2] la magnitud
+    // del valor obtenido por la distribución de masas.
+
+    for (int i = 0; i < n_cuerpos; i++) {
+      long double r = sqrt(pow(xp[i], 2) + pow(yp[i], 2));
+      long double r_inverso = pow(r, -1);
+      long double vel_compartida =
+          sqrt(G * M_PI * n_cuerpos * masa[i] * r) * 3.0e-11;
+
+      vx[i] =
+          vel_compartida * (-1*yp[i] * r_inverso + random_menos1_a_1(generator));
+      vy[i] = vel_compartida * (xp[i] * r_inverso + random_menos1_a_1(generator));
+    }
+  }
 
 ## Discusión de Resultados 
 ## Conclusiones 
