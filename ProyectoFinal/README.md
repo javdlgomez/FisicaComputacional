@@ -13,7 +13,7 @@ Para modelar este sistema se realizó una simulación en c++, utilizando el mét
 
 ## Métodos 
 ### Generalidades:
-Para resolver el problema se realizaron dos simulaciones computacionales en c++ bajo el estandar stdc++20. Estas simulaciones realizan la aproximación de la solución del sistema de movimiento empleando el método de RK4, este funciona tomando las condiciones iniciales dadas por nuestra solución particular y obtiene las variables físicas en el siguiente intervalo de tiempo. Este algoritmo se repite tomando como los valores obtenidos las nuevas condiciones iniciales y se realiza hasta que se llegue al tiempo de duración deseado.
+Para resolver el problema se realizaron dos simulaciones computacionales en c++ bajo el estandar stdc++20 gcc v 12.2.0. Estas simulaciones realizan la aproximación de la solución del sistema de movimiento empleando el método de RK4, este funciona tomando las condiciones iniciales dadas por nuestra solución particular y obtiene las variables físicas en el siguiente intervalo de tiempo. Este algoritmo se repite tomando como los valores obtenidos las nuevas condiciones iniciales y se realiza hasta que se llegue al tiempo de duración deseado.
 
 
 ### Condiciones iniciales:
