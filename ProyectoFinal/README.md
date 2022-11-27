@@ -318,6 +318,7 @@ Debido a la resolución no es posible apreciar la órbita de la tierra con el so
 
 ![image](https://user-images.githubusercontent.com/100542213/204129647-44cf39b8-492e-4c27-869a-4f894baf0885.png)
 
+Notemos que las variables físicas se comportan moderadamente como lo esperado.
 
  ### Funciones Simulación Script Nuevo:
  
@@ -530,7 +531,7 @@ El código fuente puede ser visto [aqui.](https://github.com/javdlgomez/FisicaCo
 
 ![image](https://user-images.githubusercontent.com/100542213/204129710-c2a6efb9-d3c9-493d-b03c-f92188109d7f.png)
 
-
+Notemos que en esta simulación las variables físicas no se comportan de acuerdo a lo esperado.
 
 ## Discusión de Resultados 
 
@@ -547,27 +548,44 @@ El código fuente puede ser visto [aqui.](https://github.com/javdlgomez/FisicaCo
 
 #### Respecto de las gráficas:
 
+-Todas las gráficas se comportan de acuerdo a lo esperado salvo pequeños movimientos que aparecen por la aproximación numérica.
+
+-Existe una correlación entre los saltos de energía y las colisiones entre las masas, o entre un error de la simulación que ocurre donde una de las masas es repelida con una enorme velocidad en vez de unirse a la otra en una colisión inelástico.
+
 ### Respecto de la validez:
+
+-Ya que este sistema puede modelar efectivamente el problema de lo 3 cuerpos durante 42 años, podemos tener seguridad que para casos con menor complejidad e intervalos de tiempo nuestra simulación produce efectivamente los resultados esperados por un sistema físico utilizando incrementos de tiempo durante un día.
+
+-Pero no es posible conlcuir exactamente que tan precisa es la simulación del sistema final, ya que ocurre un error que aparece como un gran salto de energía en el momento en que 2 masas debían haber colisionado pero una de ellas en vez es lanzada hacia el infinito con una velocidad mucho mayor al resto de objetos del sistema.
 
 
 ### Script Nuevo:
 #### Respecto del código:
 
--Se realizaron ciertos cambios en la estructura del programa base para priorizar la utilización de arreglos.
+-Se creó una estructura que contiene todos los datos que se desean medir para la simulación
 
--Se implementó una animación al momento de realizar una colisión por parte de la partícula a la cual se le es reducida su masa.
+-Se reescribió el método de la derivada, cálculo de la aceleración y RK4.
 
--Se utiliza la librería sstream que ya no es necesaria de incluir en la última versión de gcc, pero se coloca para tener retrocompatibilidad. Esta librería contiene un tipo de variable llamada sstring que se utiliza para escribir en memoria el archivo utilizando en lugar de llamaral disco duro en cada iteración para optimizar el tiempo de ejecución. 
+-Se realizan pequeñas optimizaciones priorizando realizar cálculos en memoria además de las ya realizadas en la modificación del script original.
 
 -Respecto a las variables físicas como se menciona anteriormente no se calcula la energía total del sistema si no la diferencia de esta con el término del momento del centro de masa llamada $E'$.
 
 #### Respecto de las gráficas:
 
+-Notamos que en esta iteración de la simulación ninguna de las variables se comportan de manera constante que es lo esperado por la teoría.
+
+-Esto se puede interpretar por el comportamiento divergente que se observa en la gráfica que resume las posiciones de los objetos del sistema, en vez de formar un sistema que orbita al rededor de un par de ejes.
+
 ### Respecto de la validez:
+
+-Ya que este sistema puede modelar con mediana efectividad el problema de lo 3 cuerpos durante 42 años, ya que la órbita de la tierra se aleja ligeramente durante cada año. No podemos tener mucha certeza que para casos con mayor complejidad e intervalos de tiempo nuestra simulación podrá reproducir resultados efectivos utilizando un incrementos de tiempo de un día.
+
+-Se realizaron distintas simulaciones con distintos grados de éxito respecto a los resultados esperados por la teoría, pero no es posible reproducir de manera consistente un sistema que reproduzca los resultados esperados por la teoría.
+
 
 ## Conclusiones
 
-1) Nuestra implementación del método de RK4 no es lo suficientemente precisa para reproducir de consistente la evolución temporal de un sistema de 100 masas puntuales distribuidas aleatoriamente en un cuadrado durante 5000 mil años de evolución. Pero puede reproducir resultados moderadamente confiables para configuraciones específicas.
+1) Nuestra implementación del método de RK4 no es lo suficientemente precisa para reproducir de manera consistente la evolución temporal de un sistema de 100 masas puntuales distribuidas aleatoriamente en un cuadrado durante 5000 mil años de evolución. Pero puede reproducir resultados moderadamente confiables para configuraciones específicas.
 2) Un problema fundamental de esta simulación es que se debe encontrar un balance entre la presición empleada en el modelo y el intervalo de tiempo que se desea estudiar. Para este caso particular se encontró que hacer intervalos de evolución de 1 día reproduce resultados más con mayor probabilidad de éxito sin compromter tanto el tiempo de ejecución, para hacer una evolución de hasta 5000 mil años.
 3) Las variables físicas de un sistema como la Energía, Momento y Momento angular total nos dan una pauta de hasta qué punto tiene sentido físico el comportamiento de un sistema simulado.
 
