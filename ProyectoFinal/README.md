@@ -39,7 +39,7 @@ $$ |r_i-r_j| = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2} $$
 $$ \ddot { {y_i }}= \sum_{i\neq j} - \frac{Gm_j}{|r_i-r_j|^3}(y_i-y_j) $$
 
 
-Finalmente se coloca el valor de todas las masas a $m_i = 10^18 kg$.
+Finalmente se coloca el valor de todas las masas a $m_i = 10^{18}kg$.
 Es importante agregar que nuestra simulación se generalizó para aceptar valores distintos de masas puntuales.
 
 ### Cálculo de las variables físicas:
@@ -61,6 +61,8 @@ $$E' = E-\frac{MP^2}{2} $$
 
 
 Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas:
+
+[^fn1]
 
 $$ L = R \times P + \sum r_i \times m_i v_i $$
 
@@ -488,3 +490,8 @@ El código fuente puede ser visto en .
 
 ## Conclusiones 
 ## Referencias
+
+[^fn1]: So Chris Krycho, "Not Exactly a Millennium," chriskrycho.com, July 22,
+
+2015, http://v4.chriskrycho.com/2015/not-exactly-a-millennium.html
+(accessed July 25, 2015), ¶6.
