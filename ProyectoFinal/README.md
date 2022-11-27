@@ -307,7 +307,7 @@ Debido a la resolución no es posible apreciar la órbita de la tierra con el so
 ![image](https://user-images.githubusercontent.com/100542213/204129542-fb2b7bf4-07bd-4f48-b358-c3dfe85f97ce.png)
 
 
-#### Energía Total
+#### Energía'
 
 ![image](https://user-images.githubusercontent.com/100542213/204129546-e56d98ba-1e03-4d02-9ab6-c063bbda178a.png)
 
@@ -524,7 +524,7 @@ El código fuente puede ser visto [aqui.](https://github.com/javdlgomez/FisicaCo
 ![image](https://user-images.githubusercontent.com/100542213/204129707-c364bbb5-dd0b-47d3-b409-1454f238a5f1.png)
 
 
-#### Energía Total
+#### Energía'
 
 ![image](https://user-images.githubusercontent.com/100542213/204129687-bbdfdea3-9181-49e1-b9bf-54ab266b8c32.png)
 
@@ -550,15 +550,13 @@ Notemos que en esta simulación las variables físicas no se comportan de acuerd
 
 #### Respecto de las gráficas:
 
--Todas las gráficas se comportan de acuerdo a lo esperado salvo pequeños movimientos que aparecen por la aproximación numérica.
-
--Existe una correlación entre los saltos de energía y las colisiones entre las masas, o entre un error de la simulación que ocurre donde una de las masas es repelida con una enorme velocidad en vez de unirse a la otra en una colisión inelástico.
+Todas las gráficas se comportan de acuerdo a lo esperado salvo pequeños movimientos que aparecen por la aproximación numérica.
+Existe una correlación entre los saltos de energía y las colisiones entre las masas, o entre un error de la simulación que ocurre donde una de las masas es repelida con una enorme velocidad en vez de unirse a la otra en una colisión inelástico.
 
 ### Respecto de la validez:
 
--Ya que este sistema puede modelar efectivamente el problema de lo 3 cuerpos durante 42 años, podemos tener seguridad que para casos con menor complejidad e intervalos de tiempo nuestra simulación produce efectivamente los resultados esperados por un sistema físico utilizando incrementos de tiempo durante un día.
-
--Pero no es posible conlcuir exactamente que tan precisa es la simulación del sistema final, ya que ocurre un error que aparece como un gran salto de energía en el momento en que 2 masas debían haber colisionado pero una de ellas en vez es lanzada hacia el infinito con una velocidad mucho mayor al resto de objetos del sistema.
+Ya que este sistema puede modelar efectivamente el problema de lo 3 cuerpos durante 42 años, podemos tener seguridad que para casos con menor complejidad e intervalos de tiempo nuestra simulación produce efectivamente los resultados esperados por un sistema físico utilizando incrementos de tiempo durante un día.
+Pero no es posible conlcuir exactamente que tan precisa es la simulación del sistema final, ya que ocurre un error que aparece como un gran salto de energía en el momento en que 2 masas debían haber colisionado pero una de ellas en vez es lanzada hacia el infinito con una velocidad mucho mayor al resto de objetos del sistema.
 
 
 ### Script Nuevo:
@@ -580,16 +578,19 @@ Notemos que en esta simulación las variables físicas no se comportan de acuerd
 
 ### Respecto de la validez:
 
--Ya que este sistema puede modelar con mediana efectividad el problema de lo 3 cuerpos durante 42 años, ya que la órbita de la tierra se aleja ligeramente durante cada año. No podemos tener mucha certeza que para casos con mayor complejidad e intervalos de tiempo nuestra simulación podrá reproducir resultados efectivos utilizando un incrementos de tiempo de un día.
-
--Se realizaron distintas simulaciones con distintos grados de éxito respecto a los resultados esperados por la teoría, pero no es posible reproducir de manera consistente un sistema que reproduzca los resultados esperados por la teoría.
+Ya que este sistema puede modelar con mediana efectividad el problema de lo 3 cuerpos durante 42 años, ya que los cuerpos orbitan exitosamente entre sí pero la órbita de la tierra se va alejando con el paso de los años. No podemos tener mucha certeza que para casos con mayor complejidad e intervalos de tiempo nuestra simulación podrá reproducir resultados efectivos utilizando un incrementos de tiempo de un día.
+Se realizaron distintas simulaciones con distintos grados de éxito respecto a los resultados esperados por la teoría, pero no es posible reproducir de manera consistente un sistema que reproduzca los resultados esperados por la teoría.
 
 
 ## Conclusiones
 
-1) Nuestra implementación del método de RK4 no es lo suficientemente precisa para reproducir de manera consistente la evolución temporal de un sistema de 100 masas puntuales distribuidas aleatoriamente en un cuadrado durante 5000 mil años de evolución. Pero puede reproducir resultados moderadamente confiables para configuraciones específicas.
+1) Nuestra implementación del método de RK4 no es lo suficientemente precisa para reproducir de manera consistente la evolución temporal de un sistema de 100 masas puntuales distribuidas aleatoriamente en un cuadrado durante 5000 mil años de evolución. Pero puede reproducir resultados moderadamente confiables con cierta frecuencia.
+
 2) Un problema fundamental de esta simulación es que se debe encontrar un balance entre la presición empleada en el modelo y el intervalo de tiempo que se desea estudiar. Para este caso particular se encontró que hacer intervalos de evolución de 1 día reproduce resultados más con mayor probabilidad de éxito sin compromter tanto el tiempo de ejecución, para hacer una evolución de hasta 5000 mil años.
+
 3) Las variables físicas de un sistema como la Energía, Momento y Momento angular total nos dan una pauta de hasta qué punto tiene sentido físico el comportamiento de un sistema simulado.
+
+4) Puede realizarse a futuro un estudio de cual es el porcentaje de éxito y si estos tienen algunas características en común al momento de colocar las condiciones iniciales.
 
 ## Referencias
 
