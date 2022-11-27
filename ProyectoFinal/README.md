@@ -44,7 +44,8 @@ Es importante agregar que nuestra simulación se generalizó para aceptar valore
 
 ### Cálculo de las variables físicas:
 
-Para encontrar el momento total se utilizó la ecuación del momento para un sistema de partículas, estas ecuaciones pueden encontrarse con más detalle en [^2].
+Para encontrar el momento total se utilizó la ecuación del momento para un sistema de partículas, estas ecuaciones pueden encontrarse con más detalle 
+en [^2].
 
 $$ P = \sum m_iv_i $$
 
