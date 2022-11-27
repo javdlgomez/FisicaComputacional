@@ -60,9 +60,7 @@ $$E' = E-\frac{MP^2}{2} $$
 
 
 
-Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas:
-
-[^fn1]
+Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas: [^fn1]
 
 $$ L = R \times P + \sum r_i \times m_i v_i $$
 
