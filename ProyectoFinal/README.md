@@ -71,7 +71,7 @@ Para calcular la evolución de las variables de movimiento utilizamos la impleme
 
 ### Cálculo de las colisiones:
 
-Se utiliza un threshold de colisión bastante pequeño comparado con el tamaño de la geometría simulación pero basado físicamente en un radio de planeta ligeramente mayor al radio de la tierra $$ th = 1e^7$$. Por este motivo las colisiones son poco comunes y puede existir un traslape en las animaciones donde parece que ocurre una colisión porque el tamaño animado es más grande que el threshold, o sea su tamaño físico dado.
+Se utiliza un threshold de colisión bastante pequeño comparado con el tamaño de la geometría simulación pero basado físicamente en un radio de planeta ligeramente mayor al radio de la tierra $ th = 1e^7$. Por este motivo las colisiones son poco comunes y puede existir un traslape en las animaciones donde parece que ocurre una colisión porque el tamaño animado es más grande que el threshold, o sea su tamaño físico dado.
 Al ocurrir una colisión se resuelve el sistema de ecuaciones para una colisión elástica perfecta con respecto de las variables físicas finales y se unen los 2 cuerpos sumando sus masas asignándole el valor a una de ellas y descartando la masa de la otra.
 
 ### Validez de los modelos:
