@@ -29,7 +29,7 @@ $$   v_{i0} = \frac{\sqrt{G \pi N m_i  r_i}}{L}(-\frac{y_{i0}}{r_i},\frac{x_{i0}
 
 Además se agregó un término aleatorio que oscila entre $\pm \frac{\sqrt{G\pi N m_i r_i}}{L}$.
 
-Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por ley de Newton y se llegó al siguiente resultado como fue dado en  [^uno].
+Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por ley de Newton y se llegó al siguiente resultado como fue dado en [^1].
 
 
 $$ |r_i-r_j| = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2} $$
@@ -54,7 +54,7 @@ $$ E = \frac{P^2}{2M}    +\sum \frac{m_iv_i^2}{2} +V(r_i)+ \sum_{i\neq j} V(r_{i
 
 Donde M es la masa total y P es el momento del centro de masa del sistema.
 
-Ya que nuestra simulación calcula de manera separada el momento del centro de masa, nosotros graficaremos la resta de la energía total con esta, esto quiere decir que nuestro resultado estara en términos de 
+Ya que nuestra simulación calcula de manera separada el momento del centro de masa, nosotros graficaremos la resta de la energía total con esta, esto quiere decir que nuestro resultado estará en términos de 
 
 $$E' = E-\frac{MP^2}{2} $$
 
