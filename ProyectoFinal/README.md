@@ -484,8 +484,36 @@ El código fuente puede ser visto [aqui.](https://github.com/javdlgomez/FisicaCo
 
 ## Discusión de Resultados 
 
+### Script original:
+#### Respecto del Script Original:
+
+-Se realizaron ciertos cambios en la estructura del programa base para priorizar la utilización de arreglos.
+
+-Se implementó una animación al momento de realizar una colisión por parte de la partícula a la cual se le es reducida su masa.
+
+-Se utiliza la librería sstream que ya no es necesaria de incluir en la última versión de gcc, pero se coloca para tener retrocompatibilidad. Esta librería contiene un tipo de variable llamada sstring que se utiliza para escribir en memoria el archivo utilizando en lugar de llamaral disco duro en cada iteración para optimizar el tiempo de ejecución. 
+
+-Respecto a las variables físicas como se menciona anteriormente no se calcula la energía total del sistema si no la diferencia de esta con el término del momento del centro de masa llamada $E'$.
+
+#### Respecto de las gráficas:
+
+### Respecto de la validez:
 
 
+### Script Nuevo:
+#### Respecto del código:
+
+-Se realizaron ciertos cambios en la estructura del programa base para priorizar la utilización de arreglos.
+
+-Se implementó una animación al momento de realizar una colisión por parte de la partícula a la cual se le es reducida su masa.
+
+-Se utiliza la librería sstream que ya no es necesaria de incluir en la última versión de gcc, pero se coloca para tener retrocompatibilidad. Esta librería contiene un tipo de variable llamada sstring que se utiliza para escribir en memoria el archivo utilizando en lugar de llamaral disco duro en cada iteración para optimizar el tiempo de ejecución. 
+
+-Respecto a las variables físicas como se menciona anteriormente no se calcula la energía total del sistema si no la diferencia de esta con el término del momento del centro de masa llamada $E'$.
+
+#### Respecto de las gráficas:
+
+### Respecto de la validez:
 
 ## Conclusiones
 
