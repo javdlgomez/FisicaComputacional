@@ -29,7 +29,7 @@ $$   v_{i0} = \frac{\sqrt{G \pi N m_i  r_i}}{L}(-\frac{y_{i0}}{r_i},\frac{x_{i0}
 
 Además se agregó un término aleatorio que oscila entre $\pm \frac{\sqrt{G\pi N m_i r_i}}{L}$.
 
-Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por ley de Newton y se llegó al siguiente resultado como fue dado en [^1].
+Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por ley de Newton y se llegó resultado como fue dado en [^1].
 
 
 $$ |r_i-r_j| = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2} $$
