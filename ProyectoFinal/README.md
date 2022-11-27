@@ -44,21 +44,27 @@ Es importante agregar que nuestra simulación se generalizó para aceptar valore
 
 ### Cálculo de las variables físicas:
 
-
-Para encontrar la energía total se utiliza la ecuación de la energía para un sistema de partículas:
-
-$$ E = \frac{MR^2}{2}    +\sum \frac{m_iv_i^2}{2} +V(r_i)+ \sum_{i\neq j} V(r_{ij})$$
-
-Donde M es la masa total y R es la posición del centro de masa del sistema.
-
 Para encontrar el momento total se utilizó la ecuación del momento para un sistema de partículas:
 
 $$ P = \sum m_iv_i $$
+
+Para encontrar la energía total se utiliza la ecuación de la energía para un sistema de partículas:
+
+$$ E = \frac{P^2}{2M}    +\sum \frac{m_iv_i^2}{2} +V(r_i)+ \sum_{i\neq j} V(r_{ij})$$
+
+Donde M es la masa total y P es el momento del centro de masa del sistema.
+
+Ya que nuestra simulación calcula de manera separada el momento del centro de masa, nosotros graficaremos la resta de la energía total con esta, esto quiere decir que nuestro resultado estara en términos de 
+
+$$E' = E-\frac{MR^2}{2} $$
+
+
 
 Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas:
 
 $$ L = R \times P + \sum r_i \times m_i v_i $$
 
+Donde R es el radio del centro de masa.
 
 Para calcular la evolución de las variables de movimiento utilizamos la implementación del algoritmo de RK4 y repetimos el proceso.
 
