@@ -19,7 +19,7 @@ Para resolver el problema se realizaron dos scripts distintos de simulaciones co
 ### Condiciones iniciales:
 Para obtener las posiciones iniciales se utilizó el generador de números pseudo aleatorios por defecto de la libreria random de c++ y se distribuyeron las masas en un cuadrado centrado en el origen de lado 2UA.
 
-Para obtener las velocidades iniciales se utilizó la expresión obtenida en :
+Para obtener las velocidades iniciales se utilizó la expresión obtenida en [^1]:
 
 
 $$ r_i = \sqrt{x_i^2+y_i^2}  $$
@@ -29,7 +29,7 @@ $$   v_{i0} = \frac{\sqrt{G \pi N m_i  r_i}}{L}(-\frac{y_{i0}}{r_i},\frac{x_{i0}
 
 Además se agregó un término aleatorio que oscila entre $\pm \frac{\sqrt{G\pi N m_i r_i}}{L}$.
 
-Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por ley de Newton y se llegó al siguiente resultado como fue dado en  :
+Para encontrar la aceleraciones iniciales se despejó el sistema obtenido por ley de Newton y se llegó al siguiente resultado como fue dado en  [^uno].
 
 
 $$ |r_i-r_j| = \sqrt{(x_i-x_j)^2+(y_i-y_j)^2} $$
@@ -44,7 +44,7 @@ Es importante agregar que nuestra simulación se generalizó para aceptar valore
 
 ### Cálculo de las variables físicas:
 
-Para encontrar el momento total se utilizó la ecuación del momento para un sistema de partículas:
+Para encontrar el momento total se utilizó la ecuación del momento para un sistema de partículas, estas ecuaciones pueden encontrarse con más detalle en [^2].
 
 $$ P = \sum m_iv_i $$
 
@@ -60,7 +60,7 @@ $$E' = E-\frac{MP^2}{2} $$
 
 
 
-Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas [^uno]
+Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas 
 
 $$ L = R \times P + \sum r_i \times m_i v_i $$
 
@@ -489,7 +489,6 @@ El código fuente puede ser visto en .
 ## Conclusiones 
 ## Referencias
 
-[^uno]: So Chris Krycho, "Not Exactly a Millennium," chriskrycho.com, July 22,
+[^1]: Enrique Pazos, "Proyecto final", https://classroom.google.com/u/0/c/NDg4NTc3ODA4OTQ5/a/NDkyMjY0NTA4NzU4/details
 
-2015, http://v4.chriskrycho.com/2015/not-exactly-a-millennium.html
-(accessed July 25, 2015), ¶6.
+[^2] Martin Houde, "Chapter 7. Dynamics of Systems of Particles", https://physics.uwo.ca/~mhoude2/courses/PDF%20files/physics350/Systems_Particles.pdf
