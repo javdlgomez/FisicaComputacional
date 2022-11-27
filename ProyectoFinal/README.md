@@ -290,7 +290,7 @@ Se omiten el resto de funciones de escritura por su similitud.
 
 ![image](https://user-images.githubusercontent.com/100542213/204115662-5574375e-e658-4d7d-ba74-fc804dd94a03.png)
 
- 
+Debido a la resolución no es posible apreciar la órbita de la tierra con el sol y las sutilezas de la órbita de la luna con la tierra, pero es posible reproducir fácilmente las imágenes utilizando las bases de datos proporcionadas [a continuación.](https://github.com/javdlgomez/FisicaComputacional/tree/main/ProyectoFinal/TierraLunaSol/Datos)
  
  ### Funciones Simulación Script Nuevo:
  
