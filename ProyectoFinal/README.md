@@ -491,4 +491,4 @@ El código fuente puede ser visto en .
 
 [^1]: Enrique Pazos, "Proyecto final", https://classroom.google.com/u/0/c/NDg4NTc3ODA4OTQ5/a/NDkyMjY0NTA4NzU4/details
 
-[^2] Martin Houde, "Chapter 7. Dynamics of Systems of Particles", https://physics.uwo.ca/~mhoude2/courses/PDF%20files/physics350/Systems_Particles.pdf
+[^2]: Martin Houde, "Chapter 7. Dynamics of Systems of Particles", https://physics.uwo.ca/~mhoude2/courses/PDF%20files/physics350/Systems_Particles.pdf
