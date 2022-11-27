@@ -56,7 +56,7 @@ Donde M es la masa total y P es el momento del centro de masa del sistema.
 
 Ya que nuestra simulación calcula de manera separada el momento del centro de masa, nosotros graficaremos la resta de la energía total con esta, esto quiere decir que nuestro resultado estara en términos de 
 
-$$E' = E-\frac{MR^2}{2} $$
+$$E' = E-\frac{MP^2}{2} $$
 
 
 
