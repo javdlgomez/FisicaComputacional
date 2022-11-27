@@ -1,7 +1,7 @@
 # Proyecto final
 ## Introducción
 
-El problema de los n cuerpos se refiere de forma usual a la solución del sistema de movimiento de n masas las cuales interactuan entre sí por medio de la fuerza gravitacional en 3D. Este problema no está limitado a esas restricciones y pueden añadirse otros factores o estudiar el mismo comportamiento con otras fuerzas que se comportan de manera similar como la fuerza eléctrica. 
+El problema de los n cuerpos se refiere de forma usual a la solución del sistema de movimiento de n masas las cuales interactuan entre sí por medio de la fuerza gravitacional en 3D. Este problema no está limitado a esas restricciones y pueden añadirse otros factores o estudiar el mismo comportamiento con otras fuerzas que se comportan de manera similar como la fuerza eléctrica[^3]. 
 Este sistema deja de tener solución analítica en el caso general para n>2, ya que la cantidad de grados de libertad es menor a la cantidad de ecuaciones disponibles para resolver el sistema. A pesar de esto existen casos particulares de los cuales se conocen las soluciones analíticas para más dimensiones, en especial n=3. La solucíón con condiciones arbitrarias de este sistema para los casos con n>2 puede ser encontrada mediante métodos numéricos, aproximaciones o casos reducidos de geoemtrías particulares.
 
 Nosotros estudiamos el caso particular donde se tienen 100 masas puntuales y simétricas distribuidas aleatoriamente en un cuadrado 2D, afectadas únicamente por la fuerza gravitacional. Las velocidades iniciales se obtienen mediante una simplificación asumiendo una distribución de masa uniforme y se les es agregado un factor aleatorio proporcional a la misma. Y además si 2 de estas masas llegasen a acercarse de forma que la distancia entre ellas fuese menor a un threshold dado, estas participarían en una colisión inelástica perfecta.
@@ -492,3 +492,5 @@ El código fuente puede ser visto en .
 [^1]: Enrique Pazos, "Proyecto final", https://classroom.google.com/u/0/c/NDg4NTc3ODA4OTQ5/a/NDkyMjY0NTA4NzU4/details
 
 [^2]: Martin Houde, "Chapter 7. Dynamics of Systems of Particles", https://physics.uwo.ca/~mhoude2/courses/PDF%20files/physics350/Systems_Particles.pdf
+
+[^3]: Luis Aguilar, "The N-body problem" https://www.astrosen.unam.mx/~aguilar/MySite/Outreach_files/Nbody1_eng.pdf
