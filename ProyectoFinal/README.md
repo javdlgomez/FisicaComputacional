@@ -560,7 +560,7 @@ Existe una correlación entre los saltos de E' y las colisiones entre las masas,
 
 Ya que este sistema puede modelar efectivamente el problema de lo 3 cuerpos durante 42 años, podemos tener seguridad que para casos con menor complejidad e intervalos de tiempo nuestra simulación produce efectivamente los resultados esperados por un sistema físico utilizando incrementos de tiempo durante un día.
 Pero no es posible conlcuir exactamente que tan precisa es la simulación del sistema final, ya que ocurren un errores que aparecen como un grandes saltos de ganancia de energía.
-
+Para realizar este tipo de simulación se sugiere utilizar un incremento de tiempo más pequeño aunque este no asegura la reproducción de una simulación exitosa, se realizaron mediciones de manera semi formal y el incremento de complejidad obtenido es de orden lineal.
 
 ### Script Nuevo:
 #### Respecto del código:
@@ -581,7 +581,8 @@ Esto se puede interpretar por el comportamiento divergente que se observa en la 
 ### Respecto de la validez:
 
 Ya que este sistema puede modelar con mediana efectividad el problema de lo 3 cuerpos durante 42 años, ya que los cuerpos orbitan exitosamente entre sí pero la órbita de la tierra se va alejando con el paso de los años. No podemos tener mucha certeza que para casos con mayor complejidad e intervalos de tiempo nuestra simulación podrá reproducir resultados efectivos utilizando un incrementos de tiempo de un día.
-Se realizaron distintas simulaciones con distintos grados de éxito respecto a los resultados esperados por la teoría, pero no es posible reproducir de manera consistente un sistema que reproduzca los resultados esperados por la teoría.
+Se realizaron distintas simulaciones con distintos grados de éxito respecto a los resultados esperados por la teoría, pero no es posible reproducir de manera consistente un sistema que reproduzca los resultados esperados por la teoría.}
+Para realizar este tipo de simulación se sugiere utilizar un incremento de tiempo mucho más pequeño aunque este no asegura la reproducción de una simulación exitosa, se realizaron mediciones de manera semi formal y el incremento de complejidad obtenido es de orden lineal. Debido a estas consideraciones para simular el sistema deseado se aconseja utilizar el script original.
 
 
 ## Conclusiones
@@ -592,7 +593,7 @@ Se realizaron distintas simulaciones con distintos grados de éxito respecto a l
 
 3) Las variables físicas de un sistema como la Energía, Momento y Momento angular total nos dan una pauta de hasta qué punto tiene sentido físico el comportamiento de un sistema simulado.
 
-4) Puede realizarse a futuro un estudio con un menor tiempo de paso para tratar de obtener una simulación que pueda reproducir efectivamente el sistema físico.
+4) Puede realizarse a futuro un estudio con un menor tiempo de paso para tratar de obtener una simulación que pueda reproducir efectivamente el sistema físico, se aconseja utilizar el script original.
 
 ## Referencias
 
