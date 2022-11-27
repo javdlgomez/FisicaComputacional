@@ -293,6 +293,32 @@ Se omiten el resto de funciones de escritura por su similitud.
 
 Debido a la resolución no es posible apreciar la órbita de la tierra con el sol y las sutilezas de la órbita de la luna con la tierra, pero es posible reproducir fácilmente las imágenes utilizando las bases de datos proporcionadas [a continuación.](https://github.com/javdlgomez/FisicaComputacional/tree/main/ProyectoFinal/TierraLunaSol/Datos)
  
+### Resultados de la Simulación de 100 cuerpos
+ 
+#### Momento Total  
+
+![image](https://user-images.githubusercontent.com/100542213/204129534-634255b8-0078-4fac-a6a2-faa23841df01.png)
+
+
+#### Momento Angular Total
+
+![image](https://user-images.githubusercontent.com/100542213/204129542-fb2b7bf4-07bd-4f48-b358-c3dfe85f97ce.png)
+
+
+#### Energía Total
+
+![image](https://user-images.githubusercontent.com/100542213/204129546-e56d98ba-1e03-4d02-9ab6-c063bbda178a.png)
+
+
+#### Resumen de Movimiento
+
+![image](https://user-images.githubusercontent.com/100542213/204129551-5d2729a8-cea0-4570-91d4-a6aafb9c9be8.png)
+
+#### Frame de Animación
+
+![image](https://user-images.githubusercontent.com/100542213/204129647-44cf39b8-492e-4c27-869a-4f894baf0885.png)
+
+
  ### Funciones Simulación Script Nuevo:
  
  #### Estructura de Cuerpos para la Simulación:
@@ -480,6 +506,29 @@ El código fuente puede ser visto [aqui.](https://github.com/javdlgomez/FisicaCo
 #### Resultados de la Simulación Tierra Luna Sol 
 
 ![image](https://user-images.githubusercontent.com/100542213/204115677-fc663063-251d-491e-b1e5-663689bb85b6.png)
+
+
+
+### Resultados de la Simulación de 100 cuerpos 
+ 
+#### Momento Total  
+
+![image](https://user-images.githubusercontent.com/100542213/204129697-9b10f5e1-51fa-4b6c-9e7c-deb547ee807f.png)
+
+
+#### Momento Angular Total
+
+![image](https://user-images.githubusercontent.com/100542213/204129707-c364bbb5-dd0b-47d3-b409-1454f238a5f1.png)
+
+
+#### Energía Total
+
+![image](https://user-images.githubusercontent.com/100542213/204129687-bbdfdea3-9181-49e1-b9bf-54ab266b8c32.png)
+
+
+#### Resumen de Movimiento
+
+![image](https://user-images.githubusercontent.com/100542213/204129710-c2a6efb9-d3c9-493d-b03c-f92188109d7f.png)
 
 
 
