@@ -219,33 +219,49 @@ Nuestro programa puede trabajar con un sistema de masas distintas si es deseado
  
  #### Cálculo de E, P y L totales:
  
-    void Energia_Pmomento_Lmomemnto() {
+     void Energia_Pmomento_Lmomemnto() {
 
-     // obtenemos E, P, L de todo el sistema no analizamos las partículas por
-     // separado.
+      // obtenemos E, P, L de todo el sistema no analizamos las partículas por
+      // separado.
 
-     E = 0.0;
-     P = 0.0;
-     L = 0.0;
-     long double PCM = 0.0;
-     long double mtot = 0.0;
-     long double RCM = 0.0;
-     long double Lloc = 0.0;
-     for (int j = 0; j < n_cuerpos; j++) {
-       long double vx2_mas_vy2 = pow(vx[j], 2) + pow(vy[j], 2);
-       long double sqrt_vx2_mas_vy2 = sqrt(vx2_mas_vy2);
-       E += masa[j] * vx2_mas_vy2 * 0.5;
-       PCM += masa[j] * sqrt_vx2_mas_vy2;
-       mtot += masa[j];
-       RCM += masa[j] * sqrt(pow(xp[j], 2) + pow(yp[j], 2));
-       Lloc = RCM * sqrt_vx2_mas_vy2;
-     }
-     RCM = RCM / mtot;
-     E += pow(PCM, 2) * 0.5 / mtot;
-     P = PCM;
-     L = RCM * PCM + Lloc;
-     //L tiene un problema y es que no está considerando las posiciones relativas
-     // 
+      E = 0.0;
+      P = 0.0;
+      L = 0.0;
+      long double V = 0.0;
+      long double PCM = 0.0;
+      long double mtot = 0.0;
+      long double Eloc = 0.0;
+      long double RCM = 0.0;
+      long double Lloc = 0.0;
+      long double V_cruzado = 0.0;
+      for (int j = 0; j < n_cuerpos; j++) {
+
+        long double sqrt_x2_mas_y2 = sqrt(pow(xp[j], 2) + pow(yp[j], 2));
+        long double vx2_mas_vy2 = (pow(vx[j], 2) + pow(vy[j], 2));
+        long double sqrt_vx2_mas_vy2 = sqrt(vx2_mas_vy2);
+
+        V += G * masa[j] / sqrt_x2_mas_y2;
+        Eloc += masa[j] * vx2_mas_vy2 * 0.5;
+
+        PCM += masa[j] * sqrt_vx2_mas_vy2;
+        mtot += masa[j];
+        RCM += masa[j] * sqrt(pow(xp[j], 2) + pow(yp[j], 2));
+        Lloc = RCM * sqrt_vx2_mas_vy2;
+        vx2_mas_vy2 = 0.0;
+        sqrt_vx2_mas_vy2 = 0.0;
+
+        // potencial cruzado
+        for (int i = 0; i < j; i++) {
+          long double x2_menos_y2 =
+              pow((xp[i] - xp[j]), 2) + pow((yp[i] - yp[j]), 2);
+          long double sqrt_x2_menos_y2 = sqrt(x2_menos_y2);
+          V_cruzado += G * masa[i] * masa[j] / sqrt_x2_menos_y2;
+        }
+      }
+      RCM = RCM / mtot;
+      P = PCM;
+      E = Eloc - V - V_cruzado;
+      L = RCM * PCM + Lloc;
     }
 
 
@@ -269,6 +285,11 @@ Nuestro programa puede trabajar con un sistema de masas distintas si es deseado
       }
 
 Se omiten el resto de funciones de escritura por su similitud.
+
+#### Resultados de la Simulación Tierra Luna Sol 
+
+![image](https://user-images.githubusercontent.com/100542213/204115662-5574375e-e658-4d7d-ba74-fc804dd94a03.png)
+
  
  
  ### Funciones Simulación Script Nuevo:
@@ -454,6 +475,11 @@ Además se reescribió el método para calcular las derivadas, aceleración y la
       }
 
 El código fuente puede ser visto en .
+
+#### Resultados de la Simulación Tierra Luna Sol 
+
+![image](https://user-images.githubusercontent.com/100542213/204115677-fc663063-251d-491e-b1e5-663689bb85b6.png)
+
 
 ## Discusión de Resultados 
 
