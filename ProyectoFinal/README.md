@@ -1,8 +1,7 @@
-##### Física Computacional                                                                                                           
-#####Javier de León 201603038  
+# Proyecto final Física Computacional         
 
+### Javier de León 201603038  
 
-# Proyecto final
 ## Introducción
 
 El problema de los n cuerpos se refiere de forma usual a la solución del sistema de movimiento de n masas las cuales interactuan entre sí por medio de la fuerza gravitacional en 3D. Este problema no está limitado a esas restricciones y pueden añadirse otros factores o estudiar el mismo comportamiento con otras fuerzas que se comportan de manera similar como la fuerza eléctrica[^3]. 
