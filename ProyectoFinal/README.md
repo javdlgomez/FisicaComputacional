@@ -489,7 +489,7 @@ El código fuente puede ser visto en .
 ## Conclusiones 
 ## Referencias
 
-[^fn1]: So Chris Krycho, "Not Exactly a Millennium," chriskrycho.com, July 22,
+[^uno]: So Chris Krycho, "Not Exactly a Millennium," chriskrycho.com, July 22,
 
 2015, http://v4.chriskrycho.com/2015/not-exactly-a-millennium.html
 (accessed July 25, 2015), ¶6.
