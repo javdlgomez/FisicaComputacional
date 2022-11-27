@@ -474,11 +474,12 @@ Además se reescribió el método para calcular las derivadas, aceleración y la
         z[i].vY = cuerpos[i].vY + k0[i].vY * h_step;
       }
 
-El código fuente puede ser visto en .
+El código fuente puede ser visto [aqui.](https://github.com/javdlgomez/FisicaComputacional/tree/main/ProyectoFinal/TierraLunaSolOOP). 
 
 #### Resultados de la Simulación Tierra Luna Sol 
 
 ![image](https://user-images.githubusercontent.com/100542213/204115677-fc663063-251d-491e-b1e5-663689bb85b6.png)
+
 
 
 ## Discusión de Resultados 
@@ -486,7 +487,12 @@ El código fuente puede ser visto en .
 
 
 
-## Conclusiones 
+## Conclusiones
+
+1) Nuestra implementación del método de RK4 no es lo suficientemente precisa para reproducir de forma confiable la evolución temporal de un sistema de 100 masas puntuales distribuidas aleatoriamente en un cuadrado durante 5000 mil años de evolución.
+2) Un problema fundamental de esta simulación es que se debe encontrar un balance entre la presición empleada en el modelo y el intervalo de tiempo que se desea estudiar. Para este caso particular se encontró que hacer intervalos de evolución de 1 día reproduce resultados confiables para hacer una evolución de hasta 5000 mil años.
+3) Las variables físicas de un sistema como la Energía, Momento y Momento angular total nos dan una pauta de hasta qué punto tiene sentido físico el comportamiento de un sistema simulado.
+
 ## Referencias
 
 [^1]: Enrique Pazos, "Proyecto final", https://classroom.google.com/u/0/c/NDg4NTc3ODA4OTQ5/a/NDkyMjY0NTA4NzU4/details
