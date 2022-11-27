@@ -60,7 +60,7 @@ $$E' = E-\frac{MP^2}{2} $$
 
 
 
-Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas ^[uno]
+Para encontrar el momento agnular total se utilizó la ecuación del momento angular para un sistema de partículas [^uno]
 
 $$ L = R \times P + \sum r_i \times m_i v_i $$
 
@@ -489,7 +489,7 @@ El código fuente puede ser visto en .
 ## Conclusiones 
 ## Referencias
 
-^[uno]: So Chris Krycho, "Not Exactly a Millennium," chriskrycho.com, July 22,
+[^uno]: So Chris Krycho, "Not Exactly a Millennium," chriskrycho.com, July 22,
 
 2015, http://v4.chriskrycho.com/2015/not-exactly-a-millennium.html
 (accessed July 25, 2015), ¶6.
