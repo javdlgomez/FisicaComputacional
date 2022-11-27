@@ -550,13 +550,13 @@ Notemos que en esta simulación las variables físicas no se comportan de acuerd
 
 #### Respecto de las gráficas:
 
-Todas las gráficas se comportan de acuerdo a lo esperado salvo pequeños movimientos que aparecen por la aproximación numérica.
-Existe una correlación entre los saltos de energía y las colisiones entre las masas, o entre un error de la simulación que ocurre donde una de las masas es repelida con una enorme velocidad en vez de unirse a la otra en una colisión inelástico.
+Todas las gráficas se comportan de acuerdo a lo esperado salvo pequeños movimientos que aparecen por la aproximación numérica especialmente en la gráfica de E'.
+Existe una correlación entre los saltos de E' y las colisiones entre las masas, o entre un error de la simulación que ocurre cuando 2 masas se acercaron y en vez de ocurrir una colisión, la masa resultante fue repelida con una enorme velocidad y la masa a la que se le quita su valor quedó esática. Esto ocurre debido a que existió un overflow por dividir valores muy pequeños y al evaluar la velocidad resultante en la colisión y el potencial en la energía.
 
 ### Respecto de la validez:
 
 Ya que este sistema puede modelar efectivamente el problema de lo 3 cuerpos durante 42 años, podemos tener seguridad que para casos con menor complejidad e intervalos de tiempo nuestra simulación produce efectivamente los resultados esperados por un sistema físico utilizando incrementos de tiempo durante un día.
-Pero no es posible conlcuir exactamente que tan precisa es la simulación del sistema final, ya que ocurre un error que aparece como un gran salto de energía en el momento en que 2 masas debían haber colisionado pero una de ellas en vez es lanzada hacia el infinito con una velocidad mucho mayor al resto de objetos del sistema.
+Pero no es posible conlcuir exactamente que tan precisa es la simulación del sistema final, ya que ocurren un errores que aparecen como un grandes saltos de ganancia de energía.
 
 
 ### Script Nuevo:
@@ -589,7 +589,7 @@ Se realizaron distintas simulaciones con distintos grados de éxito respecto a l
 
 3) Las variables físicas de un sistema como la Energía, Momento y Momento angular total nos dan una pauta de hasta qué punto tiene sentido físico el comportamiento de un sistema simulado.
 
-4) Puede realizarse a futuro un estudio de cual es el porcentaje de éxito y si estos tienen algunas características en común al momento de colocar las condiciones iniciales.
+4) Puede realizarse a futuro un estudio con un menor tiempo de paso para tratar de obtener una simulación que pueda reproducir efectivamente el sistema físico.
 
 ## Referencias
 
