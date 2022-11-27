@@ -572,9 +572,8 @@ Pero no es posible conlcuir exactamente que tan precisa es la simulación del si
 
 #### Respecto de las gráficas:
 
--Notamos que en esta iteración de la simulación ninguna de las variables se comportan de manera constante que es lo esperado por la teoría.
-
--Esto se puede interpretar por el comportamiento divergente que se observa en la gráfica que resume las posiciones de los objetos del sistema, en vez de formar un sistema que orbita al rededor de un par de ejes.
+Notamos que en esta iteración de la simulación ninguna de las variables se comportan de manera constante que es lo esperado por la teoría.
+Esto se puede interpretar por el comportamiento divergente que se observa en la gráfica que resume las posiciones de los objetos del sistema, en vez de formar un sistema que orbita al rededor de un par de ejes.
 
 ### Respecto de la validez:
 
