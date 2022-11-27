@@ -1,4 +1,4 @@
-### Física Computacional  Javier de León 201603038 
+### Física Computacional   <div style="text-align: right"> Javier de León 201603038  </div>
 
 # Proyecto final
 ## Introducción
