@@ -47,7 +47,7 @@ Es importante agregar que nuestra simulación se generalizó para aceptar valore
 
 Para encontrar la energía total se utiliza la ecuación de la energía para un sistema de partículas:
 
-$$ E = \frac{MR^2}{2}    +\sum \frac{m_iv_i^2}{2}  $$
+$$ E = \frac{MR^2}{2}    +\sum \frac{m_iv_i^2}{2} +V(r_i)+ \sum_{i\neq j} V(r_{ij})$$
 
 Donde M es la masa total y R es la posición del centro de masa del sistema.
 
